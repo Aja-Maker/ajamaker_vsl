@@ -60,7 +60,7 @@ const placeholders: Record<FieldName, string> = {
   email: 'Email',
   password: 'Contraseña',
   phone: 'Teléfono',
-  idNumber: 'Cédula',
+  idNumber: 'Número de identificación nacional',
   city: 'Ciudad',
   state: 'Provincia',
   postalCode: 'Código Postal',
@@ -294,7 +294,7 @@ export default function MemberForm() {
           </div>
 
           <div className="space-y-1">
-            <InputField name="idNumber" label="Cédula" register={register}
+            <InputField name="idNumber" label={placeholders.idNumber} register={register}
               infoText='Para la factura electrónica y tu cuenta de miembro'/>
             {errors.idNumber?.message && <p className="text-xs text-red-500">{errors.idNumber.message}</p>}
           </div>
