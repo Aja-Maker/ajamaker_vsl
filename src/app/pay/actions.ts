@@ -1,5 +1,6 @@
 'use server'
 
+import { devLog } from '@/components/utils/functions'
 import { redirect } from 'next/navigation'
 
 const parseResponse = async (res: Response, context: string) => {
@@ -9,11 +10,11 @@ const parseResponse = async (res: Response, context: string) => {
   try {
     json = JSON.parse(raw)
   } catch (err) {
-    console.error(`❌ [${context}] Invalid JSON:`, raw)
+    devLog(`❌ [${context}] Invalid JSON:`, raw)
     throw new Error(`[${context}] Invalid server response`)
   }
 
-  console.log(`📡 [${context}]`, json)
+  devLog(`📡 [${context}]`, json)
 
   if (!res.ok) {
     const msg =
@@ -44,7 +45,7 @@ const getCustomer = async (email: string, secretKey: string, payload: any) => {
   )
 
   if (Array.isArray(response.data) && response.data.length > 0) {
-    console.log(`👤 Existing customer found: ${response.data[0].id}`)
+    devLog(`👤 Existing customer found: ${response.data[0].id}`)
     return response.data[0].id
   }
 
@@ -59,7 +60,7 @@ const getCustomer = async (email: string, secretKey: string, payload: any) => {
     }),
     'Create Customer'
   )
-  console.log(`👤 Customer created: ${customer.id}`)
+  devLog(`👤 Customer created: ${customer.id}`)
   return customer.id
 }
 
@@ -200,7 +201,7 @@ export async function processPayment(formData: FormData) {
 
     return { status: final.status }
   } catch (err: any) {
-    console.error('❌ Payment processing error:', err.message)
+    devLog('❌ Payment processing error:', err.message)
     return { status: 'error', message: err.message }
   }
 }
@@ -208,6 +209,10 @@ export async function processPayment(formData: FormData) {
 export async function verifyPayment(intentId: string) {
   const secretKey = process.env.ONVO_SECRET_KEY
   if (!secretKey) throw new Error('Missing secret key')
+
+  if (!intentId || typeof intentId !== 'string') {
+    throw new Error('ID de intento inválido.')
+  }
 
   const res = await fetch(`https://api.onvopay.com/v1/payment-intents/${intentId}`, {
     headers: {
@@ -217,7 +222,7 @@ export async function verifyPayment(intentId: string) {
 
   const json = await res.json()
 
-  console.log('📡 Verificación de intento de pago:', json)
+  devLog('📡 Verificación de intento de pago:', json)
 
   if (!res.ok) {
     const msg = json?.message?.[0] || json?.error || 'Error verificando pago'

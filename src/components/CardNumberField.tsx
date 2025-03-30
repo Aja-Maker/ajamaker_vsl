@@ -10,23 +10,35 @@ interface CardInputProps {
   error?: string
 }
 
-const detectCardType = (number: string) => {
+type CardType = 'visa' | 'mastercard' | 'amex' | 'unknown'
+
+const detectCardType = (number: string): CardType => {
   if (/^4[0-9]{0,}$/.test(number)) return 'visa'
   if (/^5[1-5][0-9]{0,}$/.test(number)) return 'mastercard'
+  if (/^3[47][0-9]{0,}$/.test(number)) return 'amex'
   return 'unknown'
 }
 
-const formatCardNumber = (value: string) => {
-  return (value || '').replace(/\D/g, '').replace(/(.{4})/g, '$1 ').trim()
+const formatCardNumber = (value: string, type: CardType) => {
+  const cleaned = (value || '').replace(/\D/g, '')
+  if (type === 'amex') {
+    return cleaned.replace(/^(\d{0,4})(\d{0,6})(\d{0,5}).*/, (_, a, b, c) => {
+      return [a, b, c].filter(Boolean).join(' ')
+    })
+  }
+  return cleaned.replace(/(.{4})/g, '$1 ').trim()
 }
 
 export default function CardNumberField({ name, value, onChange, error }: CardInputProps) {
-  const [cardType, setCardType] = useState<'visa' | 'mastercard' | 'unknown'>('unknown')
+  const [cardType, setCardType] = useState<CardType>('unknown')
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const raw = e.target.value.replace(/\D/g, '').slice(0, 16)
-    setCardType(detectCardType(raw))
-    onChange(raw)
+    const raw = e.target.value.replace(/\D/g, '')
+    const type = detectCardType(raw)
+    setCardType(type)
+
+    const maxLength = type === 'amex' ? 15 : 16
+    onChange(raw.slice(0, maxLength))
   }
 
   return (
@@ -39,7 +51,7 @@ export default function CardNumberField({ name, value, onChange, error }: CardIn
           type="text"
           inputMode="numeric"
           name={name}
-          value={formatCardNumber(value || '')}
+          value={formatCardNumber(value || '', cardType)}
           onChange={handleInput}
           className={`
             w-full rounded-md border px-3 py-2 text-sm text-gray-900 shadow-sm transition
@@ -54,6 +66,9 @@ export default function CardNumberField({ name, value, onChange, error }: CardIn
           )}
           {(cardType === 'unknown' || cardType === 'mastercard') && (
             <Icon icon="logos:mastercard" className="w-5 h-5" />
+          )}
+          {(cardType === 'unknown' || cardType === 'amex') && (
+            <Icon icon="fontisto:american-express" className="w-5 h-5" />
           )}
         </div>
       </div>

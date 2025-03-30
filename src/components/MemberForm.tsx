@@ -12,6 +12,7 @@ import PhoneField from './PhoneField'
 import PasswordField from '@/components/PasswordField'
 import PaymentSummary from '@/components/PaymentSummary'
 import CardNumberField from '@/components/CardNumberField'
+import { devLog, formatFriendlyError } from './utils/functions'
 
 const countryOptions = [
   { code: 'AR', name: 'Argentina', dial: '+54' },
@@ -160,8 +161,12 @@ export default function MemberForm() {
         setSnackbarMessage('El pago fue cancelado o no se pudo completar.')
         throw new Error('3DS cancelado o fallido.')
       } catch (err: any) {
-        console.error('❌ Error durante 3DS:', err)
-        setSnackbarMessage('El pago fue cancelado o no se pudo completar.')
+        devLog('❌ Error durante 3DS:', err)
+
+        const msg = formatFriendlyError(err)
+        setSnackbarMessage(msg)
+
+
         throw err
       }      
     }
@@ -171,7 +176,8 @@ export default function MemberForm() {
       return
     }
   
-    setSnackbarMessage('No se pudo procesar el pago.')
+    const msg = formatFriendlyError(result)
+    setSnackbarMessage(msg)
     throw new Error('El pago no fue exitoso.')
   }  
 
