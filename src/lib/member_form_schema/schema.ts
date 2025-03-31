@@ -70,4 +70,7 @@ export const paymentFormSchema = z.object({
   cvv: z
     .string()
     .regex(/^\d{3,4}$/, "CVV inválido"),
+  contractAccepted: z.literal(true, {
+    errorMap: () => ({ message: 'Debés aceptar el contrato para continuar.' })
+  }),
 });

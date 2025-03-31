@@ -11,8 +11,12 @@ export function formatFriendlyError(error: any, card?: CardDetails): string {
   const brand = card?.brand ?? 'Desconocida'
   const last4 = card?.last4 ?? '****'
 
-  // ONVO error codes y mensajes conocidos
   const code = error?.code || error?.failureCode || error?.message || error?.error
+
+  // ✅ If the message is a plain user-friendly string, return directly
+  if (typeof error?.message === 'string' && !code?.includes('cards.') && !code?.includes('declined')) {
+    return error.message
+  }
 
   switch (code) {
     case 'declined':

@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { processPayment, verifyPayment } from '@/app/pay/actions'
+import { createUserAccount, processPayment, verifyPayment } from '@/app/pay/actions'
 import InputField from '@/components/FormInput'
 import CustomSelectField from '@/components/SelectField'
 import { paymentFormSchema } from '@/lib/member_form_schema/schema'
@@ -12,7 +12,9 @@ import PhoneField from './PhoneField'
 import PasswordField from '@/components/PasswordField'
 import PaymentSummary from '@/components/PaymentSummary'
 import CardNumberField from '@/components/CardNumberField'
+import ContractCheckbox from '@/components/ContractCheckbox'
 import { devLog, formatFriendlyError } from './utils/functions'
+import PaymentConfirmedPage from './PaymentConfirmedPage'
 
 const countryOptions = [
   { code: 'AR', name: 'Argentina', dial: '+54' },
@@ -69,17 +71,18 @@ const placeholders: Record<FieldName, string> = {
   expMonth: 'Mes exp.',
   expYear: 'Año exp.',
   cvv: 'CVV',
+  contractAccepted: ''
 }
 
-export async function handle3DSFlow(paymentIntentId: string): Promise<boolean> {
+export async function handle3DSFlow(paymentIntentId: string): Promise<{ status: any; confirmationNumber: any; }> {
   const onvo = (window as any).ONVO?.(process.env.NEXT_PUBLIC_ONVO_PUBLISHABLE_KEY!)
   if (!onvo) throw new Error('ONVO SDK no está disponible.')
 
   await onvo.handleNextAction({ paymentIntentId })
 
-  const finalStatus = await verifyPayment(paymentIntentId)
+  const final = await verifyPayment(paymentIntentId)
 
-  return finalStatus === 'succeeded'
+  return final;
 }
 
 
@@ -88,6 +91,7 @@ export default function MemberForm() {
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [snackbarMessage, setSnackbarMessage] = useState<string | null>(null)
+  const [userCreationError, setUserCreationError] = useState<string | null>(null)
 
   const {
     register,
@@ -135,43 +139,45 @@ export default function MemberForm() {
 
   const onSubmit = async (data: MemberFormSchema) => {
     const fullPhone = `${phonePrefix}${data.phone}`
-    const formData = new FormData()
-  
-    for (const [key, value] of Object.entries(data)) {
-      if (key === 'phone') {
-        formData.append('phone', fullPhone)
-      } else {
-        formData.append(key, value)
-      }
+    const payload: MemberFormSchema = {
+      ...data,
+      phone: fullPhone,
     }
   
-    sessionStorage.setItem('memberForm', JSON.stringify({ ...data, phone: fullPhone }))
+    const { cardNumber, expMonth, expYear, cvv, ...nonSensitiveData } = payload
+    sessionStorage.setItem('memberForm', JSON.stringify(nonSensitiveData))
+
   
-    const result = await processPayment(formData)
+    const result = await processPayment(payload)
   
     if (result?.status === 'requires_action' && result.paymentIntentId) {
       try {
         const success = await handle3DSFlow(result.paymentIntentId)
-      
-        if (success) {
+        if (success.status === 'succeeded') {
+          const account = await createUserAccount(payload, success.confirmationNumber)
+          console.log(account.status)
+          if (account?.status === 'error') {
+            setUserCreationError(account.message ?? 'No se pudo crear tu cuenta.')
+          }
           setSuccess(true)
           return
         }
-      
         setSnackbarMessage('El pago fue cancelado o no se pudo completar.')
         throw new Error('3DS cancelado o fallido.')
       } catch (err: any) {
         devLog('❌ Error durante 3DS:', err)
-
         const msg = formatFriendlyError(err)
         setSnackbarMessage(msg)
-
-
         throw err
-      }      
+      }
     }
-  
+    
     if (result?.status === 'succeeded') {
+      const account = await createUserAccount(payload, result.confirmationNumber)
+      console.log(account.status)
+      if (account?.status === 'error') {
+        setUserCreationError(account.message ?? 'No se pudo crear tu cuenta.')
+      }
       setSuccess(true)
       return
     }
@@ -182,12 +188,9 @@ export default function MemberForm() {
   }  
 
   if (isSubmitSuccessful) {
-    return (
-      <div className="max-w-md mx-auto mt-10 text-center">
-        <h2 className="text-xl font-semibold text-green-700">¡Pago realizado con éxito!</h2>
-        <p className="mt-2 text-sm">Pronto recibirás un correo de confirmación.</p>
-      </div>
-    )
+    if (isSubmitSuccessful) {
+      return <PaymentConfirmedPage userCreationError={userCreationError} />
+    }    
   }
 
   return (
@@ -205,7 +208,7 @@ export default function MemberForm() {
         <div className="flex justify-center -mb-4">
           <img src="/g8.svg" alt="AJAMAKER Logo" className="h-20 mb-4 mx-auto" />
         </div>
-        <PaymentSummary amount={20000} label="Membresía Anual" currency='CRC'/>
+        <PaymentSummary amount={15000} label="Membresía Anual" currency='CRC'/>
 
         <section className="space-y-3">
           <h3 className="text-base font-semibold text-gray-800">Detalles de pago</h3>
@@ -327,6 +330,8 @@ export default function MemberForm() {
           </div>
         </section>
 
+        <ContractCheckbox register={register} error={errors.contractAccepted?.message} />
+
         <button
           type="submit"
           disabled={isSubmitting}
@@ -335,12 +340,12 @@ export default function MemberForm() {
           {isSubmitting ? 'Procesando...' : 'Pagar'}
         </button>
 
-        <div className="flex justify-center mt-6">
+        <div className="flex justify-center mt-6 mb-6">
           <a
             href="https://onvopay.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block opacity-70 hover:opacity-100 transition-opacity"
+            className="inline-block"
             title="Procesado de forma segura por Onvo"
           >
             <img src="/onvo-logo.svg" alt="Powered by Onvo" className="h-6" />

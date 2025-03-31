@@ -1,9 +1,10 @@
 import MemberForm from "@/components/MemberForm";
 
-export default function PayPage() {
+export default async function PayPage() {
+
   return (
     <div>
-      <MemberForm/>
+      <MemberForm />
     </div>
   );
 }
