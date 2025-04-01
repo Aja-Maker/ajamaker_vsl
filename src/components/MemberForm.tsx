@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { createUserAccount, processPayment, verifyPayment } from '@/app/pay/actions'
+import { createUserAccount, processPayment, sendEmail, verifyPayment } from '@/app/pay/actions'
 import InputField from '@/components/FormInput'
 import CustomSelectField from '@/components/SelectField'
 import { paymentFormSchema } from '@/lib/member_form_schema/schema'
@@ -155,7 +155,6 @@ export default function MemberForm() {
         const success = await handle3DSFlow(result.paymentIntentId)
         if (success.status === 'succeeded') {
           const account = await createUserAccount(payload, success.confirmationNumber)
-          console.log(account.status)
           if (account?.status === 'error') {
             setUserCreationError(account.message ?? 'No se pudo crear tu cuenta.')
           }
@@ -173,6 +172,7 @@ export default function MemberForm() {
     }
     
     if (result?.status === 'succeeded') {
+      await sendEmail({toEmail: payload.email, name: payload.name, templateId: 78})
       const account = await createUserAccount(payload, result.confirmationNumber)
       console.log(account.status)
       if (account?.status === 'error') {

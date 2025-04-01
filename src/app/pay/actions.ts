@@ -300,3 +300,42 @@ export async function createUserAccount(data: MemberFormSchema, confirmationNumb
 
   return { status: 'created' }
 }
+
+export async function sendEmail({
+  toEmail,
+  name,
+  templateId,
+}: {
+  toEmail: string
+  name: string
+  templateId: number
+}) {
+  const BREVO_API_KEY = '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'
+
+  const nameParts = name.trim().split(' ')
+  const firstName = nameParts[0]
+  const lastName = nameParts.slice(1).join(' ').toUpperCase()
+
+  const res = await fetch('https://api.brevo.com/v3/smtp/email', {
+    method: 'POST',
+    headers: {
+      'api-key': BREVO_API_KEY,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      to: [{ email: toEmail }],
+      templateId,
+      params: {
+        FIRSTNAME: firstName,
+        LASTNAME: lastName,
+      },
+    }),
+  })
+
+  if (!res.ok) {
+    const error = await res.json()
+    throw new Error(`Email send failed: ${error.message}`)
+  }
+
+  return await res.json()
+}
