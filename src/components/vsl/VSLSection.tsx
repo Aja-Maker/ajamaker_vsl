@@ -10,7 +10,7 @@ interface VSLSectionProps {
 
 const VSLSection: React.FC<VSLSectionProps> = ({ videoUrl, ctaEnabled, timeLeft }) => {
   return (
-    <section className="bg-white py-4 flex flex-col items-center space-y-4 px-4">
+    <section className="bg-white py-4 flex flex-col items-center space-y-4 px-2">
       <div className="w-full max-w-[480px] aspect-video relative">
         <iframe
           src={videoUrl}
