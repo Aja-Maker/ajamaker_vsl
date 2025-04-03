@@ -9,6 +9,11 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ ctaEnabled, timeLeft }) => {
+  const minutes = Math.floor(timeLeft / 60);
+  const seconds = timeLeft % 60;
+  
+  // Format seconds with leading zero if needed
+  const formattedTime = `${minutes}m ${seconds < 10 ? '0' : ''}${seconds}s`;
   return (
     <div className="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-2 py-2 bg-white shadow">
       {/* Logo sin texto */}
@@ -29,7 +34,7 @@ const Header: React.FC<HeaderProps> = ({ ctaEnabled, timeLeft }) => {
         </Link>
       ) : (
         <div className="text-[#1D3557] font-bold text-xs">
-          Beneficios en: {timeLeft}s
+          Beneficios en: {formattedTime}
         </div>
       )}
     </div>

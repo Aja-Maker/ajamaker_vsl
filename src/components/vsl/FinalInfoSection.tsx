@@ -8,6 +8,11 @@ interface FinalInfoSectionProps {
 }
 
 const FinalInfoSection: React.FC<FinalInfoSectionProps> = ({ ctaEnabled, timeLeft }) => {
+  const minutes = Math.floor(timeLeft / 60);
+  const seconds = timeLeft % 60;
+  
+  // Format seconds with leading zero if needed
+  const formattedTime = `${minutes}m ${seconds < 10 ? '0' : ''}${seconds}s`;
   return (
     <section className="bg-[#F1F1F1] py-4 flex flex-col items-center px-4">
       <h2 className="text-xl font-bold text-[#1D3557] uppercase text-center mb-2">
@@ -43,7 +48,7 @@ const FinalInfoSection: React.FC<FinalInfoSectionProps> = ({ ctaEnabled, timeLef
         </div>
       ) : (
         <div className="mt-4 text-lg font-bold text-[#007BFF]">
-          {timeLeft}s
+          {formattedTime}
         </div>
       )}
     </section>
