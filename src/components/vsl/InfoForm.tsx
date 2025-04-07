@@ -64,6 +64,11 @@ const countryOptions = [
 ]
 
 export default function InfoFormZod() {
+  const handleClick = async () => {
+    // Dynamically import react-facebook-pixel on click (client side only)
+    const ReactPixel = (await import("react-facebook-pixel")).default;
+    ReactPixel.track("Lead");
+  };
   const [prefix, setPrefix] = useState('+506');
   const [submitted, setSubmitted] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState<string | null>(null);
@@ -79,6 +84,7 @@ export default function InfoFormZod() {
   });
 
   const onSubmit = async (data: InfoFormSchema) => {
+    await handleClick();
     const fullWhatsapp = data.whatsapp ? `${prefix}${data.whatsapp}` : undefined;
   
     const result = await addBrevoContact({

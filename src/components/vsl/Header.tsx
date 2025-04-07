@@ -30,7 +30,7 @@ const Header: React.FC<HeaderProps> = ({ ctaEnabled, timeLeft }) => {
           href="/pay"
           className="inline-block bg-[#E63946] text-white font-bold text-xs py-1 px-2 rounded shadow transition transform hover:scale-105 hover:shadow-lg"
         >
-          ✅ Quiero unirme
+          ✅ Quiero registrarme
         </Link>
       ) : (
         <div className="text-[#1D3557] font-bold text-xs">
