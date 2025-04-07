@@ -13,6 +13,11 @@ const FinalInfoSection: React.FC<FinalInfoSectionProps> = ({ ctaEnabled, timeLef
   
   // Format seconds with leading zero if needed
   const formattedTime = `${minutes}m ${seconds < 10 ? '0' : ''}${seconds}s`;
+  const handleClick = async () => {
+    // Dynamically import react-facebook-pixel on click (client side only)
+    const ReactPixel = (await import("react-facebook-pixel")).default;
+    ReactPixel.track("Lead");
+  };
   return (
     <section className="bg-[#F1F1F1] py-4 flex flex-col items-center px-4">
       <h2 className="text-xl font-bold text-[#1D3557] uppercase text-center mb-2">
@@ -41,6 +46,7 @@ const FinalInfoSection: React.FC<FinalInfoSectionProps> = ({ ctaEnabled, timeLef
         <div className="mt-4">
           <Link
             href="/pay"
+            onClick={handleClick}
             className="inline-block bg-[#E63946] text-white font-bold text-sm py-2 px-4 rounded shadow transition transform hover:scale-105 hover:shadow-2xl text-center leading-normal break-words"
           >
             ✅ Quiero acceder a AJAMAKER y sus bonos exclusivos

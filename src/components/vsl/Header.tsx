@@ -14,6 +14,11 @@ const Header: React.FC<HeaderProps> = ({ ctaEnabled, timeLeft }) => {
   
   // Format seconds with leading zero if needed
   const formattedTime = `${minutes}m ${seconds < 10 ? '0' : ''}${seconds}s`;
+  const handleClick = async () => {
+    // Dynamically import react-facebook-pixel on click (client side only)
+    const ReactPixel = (await import("react-facebook-pixel")).default;
+    ReactPixel.track("Lead");
+  };
   return (
     <div className="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-2 py-2 bg-white shadow">
       {/* Logo sin texto */}
@@ -25,9 +30,10 @@ const Header: React.FC<HeaderProps> = ({ ctaEnabled, timeLeft }) => {
           className="object-contain"
         />
       </div>
-      {true ? (
+      {ctaEnabled ? (
         <Link
           href="/pay"
+          onClick={handleClick}
           className="inline-block bg-[#E63946] text-white font-bold text-xs py-1 px-2 rounded shadow transition transform hover:scale-105 hover:shadow-lg"
         >
           ✅ Quiero registrarme
