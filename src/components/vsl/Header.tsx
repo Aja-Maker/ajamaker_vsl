@@ -25,7 +25,7 @@ const Header: React.FC<HeaderProps> = ({ ctaEnabled, timeLeft }) => {
           className="object-contain"
         />
       </div>
-      {ctaEnabled ? (
+      {true ? (
         <Link
           href="/pay"
           className="inline-block bg-[#E63946] text-white font-bold text-xs py-1 px-2 rounded shadow transition transform hover:scale-105 hover:shadow-lg"
