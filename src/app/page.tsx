@@ -6,7 +6,7 @@ import StickyHeader from "@/components/vsl/Header";
 import VSLSection from "@/components/vsl/VSLSection";
 
 export default function Home() {
-  const CTA_TIME =  935; // Tiempo en segundos
+  const CTA_TIME =  1//935; // Tiempo en segundos
   const [timeLeft, setTimeLeft] = useState(CTA_TIME);
   const [ctaEnabled, setCtaEnabled] = useState(false);
 
