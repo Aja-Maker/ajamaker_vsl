@@ -26,10 +26,10 @@ export default function PricingTableSection() {
       {/* Pricing Table Image */}
       <div className="flex justify-center mt-4">
         <Image
-          src="/pricing_table.png" // Make sure this path is correct
+          src="/pricing_table.svg" // Make sure this path is correct
           alt="Pricing Table"
-          width={3984} // Adjusted for good scaling
-          height={2296}
+          width={2500} // Adjusted for good scaling
+          height={1800}
           className="w-full max-w-[400px] h-auto"
         />
       </div>
