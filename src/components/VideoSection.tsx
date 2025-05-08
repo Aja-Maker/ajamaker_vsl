@@ -33,7 +33,7 @@ export default function VideoSection() {
       {/* Embedded Vimeo Video */}
       <div className="w-full max-w-xs mt-6">
         <iframe
-          src="https://player.vimeo.com/video/1072331528?h=e1a3cda590&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+          src="https://player.vimeo.com/video/1082710879?h=771e61491f&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
           className="w-full aspect-video rounded-md border border-gray-300"
           allow="autoplay; fullscreen; picture-in-picture"
           allowFullScreen
