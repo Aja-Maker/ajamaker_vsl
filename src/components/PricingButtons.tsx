@@ -4,10 +4,21 @@
 import Link from "next/link";
 
 export default function PricingButtons() {
-  const handleClick = async () => {
+  const handleClick97 = async () => {
     // Dynamically import react-facebook-pixel on click (client side only)
     const ReactPixel = (await import("react-facebook-pixel")).default;
-    ReactPixel.track("Lead");
+    ReactPixel.track("Lead", {
+      value: 97,
+      currency:'USD'
+    });
+  };
+  const handleClick40 = async () => {
+    // Dynamically import react-facebook-pixel on click (client side only)
+    const ReactPixel = (await import("react-facebook-pixel")).default;
+    ReactPixel.track("Lead",{
+      value: 40,
+      currency:'USD'
+    });
   };
 
   return (
@@ -16,7 +27,7 @@ export default function PricingButtons() {
       <div className="flex flex-col items-center justify-start w-[48%]">
         <Link
           href="https://buy.onvopay.com/live_5QvIMc3hfI1wSJaNOYPwyVUo8cM"
-          onClick={handleClick}
+          onClick={handleClick97}
           className="bg-[#2B4F6C] text-white rounded-lg text-xs font-semibold py-2 w-full text-center transition hover:bg-[#1f3c53]"
         >
           Membresía $97/año
@@ -31,7 +42,7 @@ export default function PricingButtons() {
         <Link
           href="https://buy.onvopay.com/live_ehN8yP56qb2Dn62GMtZrghYE5jI"
           className="bg-[#6C6C6C] text-white rounded-lg text-xs font-semibold py-2 w-full text-center transition hover:bg-[#555555]"
-          onClick={handleClick}
+          onClick={handleClick40}
         >
           3 pagos de $40/mes
         </Link>

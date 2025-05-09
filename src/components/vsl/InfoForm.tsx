@@ -106,12 +106,12 @@ export default function InfoFormZod() {
   if (submitted) {
     return (
       <div className="bg-white p-4 mt-4 rounded-lg shadow border border-gray-200 max-w-xs w-full">
-        <p className="text-center text-gray-800 font-semibold mb-3">
-          🌟 Gracias por tu interés en AJAMAKER. Te contactaremos muy pronto para ayudarte a asegurar tu acceso exclusivo.
+        <p className="text-center text-black font-light mb-3">
+          Gracias por tu interés en AJAMAKER. Te contactaremos muy pronto para ayudarte a asegurar tu acceso exclusivo.
         </p>
         <a
           href="https://api.whatsapp.com/send?text=Hola!%20Vi%20el%20video%20de%20AJAMAKER%20y%20tengo%20algunas%20dudas.%20¿Podrías%20ayudarme?"
-          className="block mt-3 bg-[#25D366] text-white font-bold py-2 px-4 text-center rounded hover:bg-green-600 transition-colors text-sm"
+          className="block mt-3 bg-[#2DA771] text-white font-bold py-2 px-4 text-center rounded hover:bg-green-600 transition-colors text-sm"
         >
           Escríbenos ahora por WhatsApp
         </a>
@@ -162,7 +162,7 @@ export default function InfoFormZod() {
 
         <button
           type="submit"
-          className="w-full bg-[#1D3557] text-white font-bold py-2 px-4 rounded hover:bg-[#153e4a] transition-colors text-sm"
+          className="w-full bg-[#2B4F6C] text-white font-bold py-2 px-4 rounded hover:bg-[#153e4a] transition-colors text-sm"
         >
           Enviar y recibir ayuda personalizada
         </button>

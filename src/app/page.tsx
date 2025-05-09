@@ -7,7 +7,7 @@ import VideoSection from '@/components/VideoSection';
 import { useState, useEffect } from 'react';
 
 export default function Home() {
-  const CTA_TIME =  935; // Tiempo en segundos
+  const CTA_TIME =  240; // Tiempo en segundos
   const [timeLeft, setTimeLeft] = useState(CTA_TIME);
   const [ctaEnabled, setCtaEnabled] = useState(false);
 
@@ -24,7 +24,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen w-full flex flex-col items-center justify-start">
-      <VideoSection />
+      <VideoSection showForm={ctaEnabled} />
       <BenefitsSection />
       <PricingTableSection />
       <FinalCTASection />
