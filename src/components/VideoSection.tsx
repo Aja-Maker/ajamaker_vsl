@@ -4,8 +4,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import PricingButtons from "./PricingButtons";
+import InfoForm from "./vsl/InfoForm";
 
-export default function VideoSection() {
+interface VideoSectionProps {
+  showForm: boolean;
+}
+
+export default function VideoSection({ showForm }: VideoSectionProps) {
   return (
     <section className="bg-[#F9F7EE] w-full py-8 flex flex-col items-center text-center space-y-4 px-4">
       {/* Top Heading */}
@@ -40,6 +45,15 @@ export default function VideoSection() {
           loading="lazy"
         ></iframe>
       </div>
+
+      {/* Conditionally Render Info Form */}
+      {showForm && (
+        <div className="mt-8 w-full max-w-xs">
+          <h3 className="text-xl font-bold text-[#2C506C]">¿Tienes preguntas?</h3>
+          <p className="text-sm text-black">¡Nosotros te contactamos!</p>
+          <InfoForm />
+        </div>
+      )}
     </section>
   );
 }

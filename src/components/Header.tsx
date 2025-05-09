@@ -4,13 +4,13 @@ import React from "react";
 
 export default function Header() {
   return (
-    <header className="bg-[#FFFDF7] flex items-center justify-center py-4">
+    <header className="bg-[#FFFDF7] flex items-center justify-center">
       <div className="flex items-center space-x-4">
         <Image
           src="/g8.svg" // Make sure to put this in your public folder or correct path
           alt="Ajamaker Logo"
-          width={60}
-          height={60}
+          width={100}
+          height={100}
         />
         <h1 className="text-[#2B4F6C] font-light text-2xl">Descubre AJAMAKER</h1>
       </div>
