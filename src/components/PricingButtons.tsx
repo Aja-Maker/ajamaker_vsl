@@ -11,11 +11,19 @@ export default function PricingButtons() {
       value: 97,
       currency:'USD'
     });
+    ReactPixel.track("Purchase", {
+      value: 97,
+      currency:'USD'
+    });
   };
   const handleClick40 = async () => {
     // Dynamically import react-facebook-pixel on click (client side only)
     const ReactPixel = (await import("react-facebook-pixel")).default;
     ReactPixel.track("Lead",{
+      value: 40,
+      currency:'USD'
+    });
+    ReactPixel.track("Purchase",{
       value: 40,
       currency:'USD'
     });
