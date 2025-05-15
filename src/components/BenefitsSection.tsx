@@ -20,7 +20,11 @@ function BenefitItem({ icon, title, description }: { icon: string; title: string
   );
 }
 
-export default function BenefitsSection() {
+interface BenefitsSectionProps {
+  showButtons: boolean;
+}
+
+export default function BenefitsSection({ showButtons }: BenefitsSectionProps) {
   return (
     <section className="bg-[#FFFDF7] w-full py-8 flex flex-col items-center text-center space-y-6 px-4">
       {/* Section Title */}
@@ -64,7 +68,9 @@ export default function BenefitsSection() {
       </div>
 
       {/* Pricing Buttons */}
-      <PricingButtons />
+      {showButtons && (
+        <PricingButtons />
+      )}
     </section>
   );
 }

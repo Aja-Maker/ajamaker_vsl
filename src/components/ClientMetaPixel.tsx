@@ -19,7 +19,6 @@ export default function ClientMetaPixel() {
       }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
       fbq('init', '${process.env.FACEBOOK_PIXEL_ID}');
       fbq('track', 'PageView');
-      fbq('track', 'Lead');
     `;
     document.head.appendChild(script);
 

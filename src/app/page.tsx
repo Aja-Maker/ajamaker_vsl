@@ -24,10 +24,14 @@ export default function Home() {
 
   return (
     <main className="min-h-screen w-full flex flex-col items-center justify-start">
-      <VideoSection showForm={ctaEnabled} />
-      <BenefitsSection />
-      <PricingTableSection />
-      <FinalCTASection />
+      <VideoSection showButtons={ctaEnabled} />
+      <BenefitsSection showButtons={ctaEnabled} />
+      {ctaEnabled && (
+        <>
+          <PricingTableSection />
+          <FinalCTASection />
+        </>
+      )}
     </main>
   );
 }

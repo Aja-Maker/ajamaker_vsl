@@ -11,7 +11,6 @@ export async function addBrevoContact({ name, email, whatsapp, question }: AddBr
   try {
     const [firstName, ...rest] = name.trim().split(' ')
     const lastName = rest.join(' ') || 'SinApellido'
-    console.log(`whatsapp: ${whatsapp}, type: ${typeof whatsapp}`)
 
     const res = await fetch('https://api.brevo.com/v3/contacts', {
       method: 'POST',
@@ -32,8 +31,6 @@ export async function addBrevoContact({ name, email, whatsapp, question }: AddBr
         }
       }),
     })
-
-    console.log(res)
 
     if (!res.ok) {
       const errorData = await res.json()

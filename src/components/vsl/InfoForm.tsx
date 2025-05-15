@@ -26,15 +26,18 @@ const infoFormSchema = z.object({
   email: z.string().email('Correo electrónico inválido'),
   whatsapp: z
     .string()
-    .optional()
-    .or(z.literal(''))
-    .refine((val) => !val || /^\+?[0-9]{8,15}$/.test(val), {
+    .min(1, 'El número de WhatsApp es requerido')
+    .refine((val) => /^\+?[0-9]{8,15}$/.test(val), {
       message: 'Número de WhatsApp inválido',
     }),
   question: z.string().max(500, 'La pregunta no puede tener más de 500 caracteres').optional(),
 });
 
 type InfoFormSchema = z.infer<typeof infoFormSchema>;
+
+interface InfoFormProps {
+  onSubmitSuccess?: () => void;
+}
 
 const countryOptions = [
   { code: 'AR', name: 'Argentina', dial: '+54' },
@@ -63,7 +66,7 @@ const countryOptions = [
   { code: 'VE', name: 'Venezuela', dial: '+58' },
 ]
 
-export default function InfoFormZod() {
+export default function InfoForm({ onSubmitSuccess }: InfoFormProps) {
   const handleClick = async () => {
     // Dynamically import react-facebook-pixel on click (client side only)
     const ReactPixel = (await import("react-facebook-pixel")).default;
@@ -96,6 +99,9 @@ export default function InfoFormZod() {
   
     if (result.success) {
       setSubmitted(true);
+      if (onSubmitSuccess) {
+        onSubmitSuccess();
+      }
     } else {
       setSnackbarMessage('Error al procesar los datos, contacte a manager@ajamaker.com');
       // Optionally clear the snack bar after 5 seconds
@@ -145,7 +151,7 @@ export default function InfoFormZod() {
             options={countryOptions}
             register={register}
             error={errors.whatsapp?.message}
-            label="Número de WhatsApp (opcional)"
+            label="Número de WhatsApp *"
           />
         </div>
 
@@ -164,7 +170,7 @@ export default function InfoFormZod() {
           type="submit"
           className="w-full bg-[#2B4F6C] text-white font-bold py-2 px-4 rounded hover:bg-[#153e4a] transition-colors text-sm"
         >
-          Enviar y recibir ayuda personalizada
+          Acceder al video
         </button>
       </form>
       {snackbarMessage && (
