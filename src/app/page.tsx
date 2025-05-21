@@ -7,7 +7,7 @@ import VideoSection from '@/components/VideoSection';
 import { useState, useEffect } from 'react';
 
 export default function Home() {
-  const CTA_TIME =  1; // Tiempo en segundos
+  const CTA_TIME =  360; // Tiempo en segundos
   const [timeLeft, setTimeLeft] = useState(CTA_TIME);
   const [ctaEnabled, setCtaEnabled] = useState(false);
 
