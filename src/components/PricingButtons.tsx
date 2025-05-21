@@ -30,7 +30,7 @@ export default function PricingButtons() {
   };
 
   return (
-    <div className="flex justify-between gap-2 w-full max-w-xs mx-auto mt-4 items-start">
+    <div className="flex justify-between gap-2 w-full max-w-xs mx-auto mt-4 items-start animate-pulse">
       {/* Plan Anual */}
       <div className="flex flex-col items-center justify-start w-[48%]">
         <Link
