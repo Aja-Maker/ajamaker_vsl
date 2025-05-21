@@ -103,7 +103,7 @@ export default function InfoForm({ onSubmitSuccess }: InfoFormProps) {
         onSubmitSuccess();
       }
     } else {
-      setSnackbarMessage('Error al procesar los datos, contacte a manager@ajamaker.com');
+      setSnackbarMessage(result.error ?? 'Datos no válidos, por favor verifique que sean correctos.');
       // Optionally clear the snack bar after 5 seconds
       setTimeout(() => setSnackbarMessage(null), 5000);
     }

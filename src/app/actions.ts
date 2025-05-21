@@ -35,7 +35,7 @@ export async function addBrevoContact({ name, email, whatsapp, question }: AddBr
     if (!res.ok) {
       const errorData = await res.json()
       console.error('Brevo API Error:', errorData)
-      throw new Error('Failed to add contact to Brevo.')
+      throw new Error(`${errorData.message ?? 'Los datos no son válidos, por favor revise que sean correctos.'}`)
     }
 
     return { success: true }
