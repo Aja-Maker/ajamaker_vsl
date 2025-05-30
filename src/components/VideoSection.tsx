@@ -9,6 +9,22 @@ interface VideoSectionProps {
 }
 
 export default function VideoSection({ showButtons }: VideoSectionProps) {
+  const handleClick97 = async () => {
+    // Dynamically import react-facebook-pixel on click (client side only)
+    const ReactPixel = (await import("react-facebook-pixel")).default;
+    ReactPixel.track("Lead", {
+      value: 97,
+      currency:'USD'
+    });
+    ReactPixel.track("Purchase", {
+      value: 97,
+      currency:'USD'
+    });
+    setTimeout(() => {
+      window.location.href = "https://calendly.com/marvin-solis-ajamaker/30min";
+    }, 500);
+  };
+
   return (
     <section className="bg-[#F9F7EE] w-full py-8 flex flex-col items-center text-center space-y-6 px-4">
       {/* Heading */}
@@ -27,7 +43,7 @@ export default function VideoSection({ showButtons }: VideoSectionProps) {
 
       {/* Calendly Button */}
       <a
-        href="https://calendly.com/marvin-solis-ajamaker/30min" // Replace with your actual link
+        onClick={handleClick97}
         target="_blank"
         rel="noopener noreferrer"
         className="flex items-center justify-center px-4 py-4 bg-[#0097AA] text-white rounded-md text-sm font-semibold max-w-xs w-full transition hover:opacity-90"
