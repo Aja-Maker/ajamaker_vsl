@@ -9,8 +9,8 @@ export default function Header() {
         <Image
           src="/g8.svg" // Make sure to put this in your public folder or correct path
           alt="Ajamaker Logo"
-          width={100}
-          height={100}
+          width={50}
+          height={50}
         />
         <h1 className="text-[#2B4F6C] font-light text-2xl">Descubre AJAMAKER</h1>
       </div>
