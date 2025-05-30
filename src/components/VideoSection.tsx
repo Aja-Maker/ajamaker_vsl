@@ -22,7 +22,7 @@ export default function VideoSection({ showButtons }: VideoSectionProps) {
     });
     setTimeout(() => {
       window.location.href = "https://calendly.com/marvin-solis-ajamaker/30min";
-    }, 500);
+    }, 700);
   };
 
   return (
@@ -42,10 +42,8 @@ export default function VideoSection({ showButtons }: VideoSectionProps) {
       />
 
       {/* Calendly Button */}
-      <a
+      <button
         onClick={handleClick97}
-        target="_blank"
-        rel="noopener noreferrer"
         className="flex items-center justify-center px-4 py-4 bg-[#0097AA] text-white rounded-md text-sm font-semibold max-w-xs w-full transition hover:opacity-90"
       >
         <div className="flex items-center justify-center space-x-5">
@@ -62,7 +60,7 @@ export default function VideoSection({ showButtons }: VideoSectionProps) {
             className="ml-2"
           />
         </div>
-      </a>
+      </button>
 
       {/* Features */}
       <div className="flex justify-between items-start gap-4 max-w-xs w-full">
