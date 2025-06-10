@@ -15,11 +15,11 @@ export default function PricingTableSection() {
       {/* Discounted Price */}
       <div className="flex flex-col items-center">
         <h3 className="text-2xl font-bold text-[#2B4F6C]">
-          HOY SOLO: <span className="text-[#2DA771]">$97 USD</span>
+          HOY SOLO: <span className="text-[#2DA771]">$297 USD</span>
         </h3>
         <p className="text-sm font-bold text-black">(Acceso completo)</p>
         <p className="text-sm font-light text-black mt-1 max-w-[300px]">
-          O 3 pagos de $40 USD si prefieres empezar poco a poco.
+          O $225 USD al año y mensualidad de $19 si prefieres empezar poco a poco.
         </p>
       </div>
 

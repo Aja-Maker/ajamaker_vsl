@@ -8,11 +8,11 @@ export default function PricingButtons() {
     // Dynamically import react-facebook-pixel on click (client side only)
     const ReactPixel = (await import("react-facebook-pixel")).default;
     ReactPixel.track("Lead", {
-      value: 97,
+      value: 297,
       currency:'USD'
     });
     ReactPixel.track("Purchase", {
-      value: 97,
+      value: 297,
       currency:'USD'
     });
   };
@@ -20,11 +20,11 @@ export default function PricingButtons() {
     // Dynamically import react-facebook-pixel on click (client side only)
     const ReactPixel = (await import("react-facebook-pixel")).default;
     ReactPixel.track("Lead",{
-      value: 40,
+      value: 225,
       currency:'USD'
     });
     ReactPixel.track("Purchase",{
-      value: 40,
+      value: 225,
       currency:'USD'
     });
   };
@@ -34,28 +34,28 @@ export default function PricingButtons() {
       {/* Plan Anual */}
       <div className="flex flex-col items-center justify-start w-[48%]">
         <Link
-          href="https://buy.onvopay.com/live_5QvIMc3hfI1wSJaNOYPwyVUo8cM"
+          href="https://buy.onvopay.com/live_x9b_2nrvF_BSfz_gpQXm2ejVAP4"
           onClick={handleClick97}
           className="bg-[#2B4F6C] text-white rounded-lg text-xs font-semibold py-2 w-full text-center transition hover:bg-[#1f3c53]"
         >
-          Membresía $97/año
+          Membresía $297/año
         </Link>
         <p className="text-[11px] text-[#2B4F6C] mt-1 text-center leading-snug">
-          Acceso completo
+          Acceso completo 65% de descuento
         </p>
       </div>
 
-      {/* Plan en 3 Pagos */}
+      {/* Plan en Pagos */}
       <div className="flex flex-col items-center justify-start w-[48%]">
         <Link
-          href="https://buy.onvopay.com/live_ehN8yP56qb2Dn62GMtZrghYE5jI"
+          href="https://buy.onvopay.com/live_7Lp3oaLX2WRmaA4t-wGWKxTxFPk"
           className="bg-[#6C6C6C] text-white rounded-lg text-xs font-semibold py-2 w-full text-center transition hover:bg-[#555555]"
           onClick={handleClick40}
         >
-          3 pagos de $40/mes
+          $225/año + $19/mes
         </Link>
         <p className="text-[11px] text-[#6C6C6C] mt-1 text-center leading-snug">
-          Acceso parcial hasta completar el pago completo ($120)
+          Acceso parcial hasta completar el pago completo ($453)
         </p>
       </div>
     </div>
