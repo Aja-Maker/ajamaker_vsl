@@ -19,7 +19,7 @@ export default function PricingTableSection() {
         </h3>
         <p className="text-sm font-bold text-black">(Acceso completo)</p>
         <p className="text-sm font-light text-black mt-1 max-w-[300px]">
-          O $225 USD al año y mensualidad de $19 si prefieres empezar poco a poco.
+          O $97 USD al año y mensualidad de $19 si prefieres empezar poco a poco.
         </p>
       </div>
 

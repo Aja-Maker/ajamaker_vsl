@@ -20,11 +20,11 @@ export default function PricingButtons() {
     // Dynamically import react-facebook-pixel on click (client side only)
     const ReactPixel = (await import("react-facebook-pixel")).default;
     ReactPixel.track("Lead",{
-      value: 225,
+      value: 97,
       currency:'USD'
     });
     ReactPixel.track("Purchase",{
-      value: 225,
+      value: 97,
       currency:'USD'
     });
   };
@@ -41,7 +41,7 @@ export default function PricingButtons() {
           Membresía $297/año
         </Link>
         <p className="text-[11px] text-[#2B4F6C] mt-1 text-center leading-snug">
-          Acceso completo 65% de descuento
+          Acceso completo 60% de descuento
         </p>
       </div>
 
@@ -52,10 +52,10 @@ export default function PricingButtons() {
           className="bg-[#6C6C6C] text-white rounded-lg text-xs font-semibold py-2 w-full text-center transition hover:bg-[#555555]"
           onClick={handleClick40}
         >
-          $225/año + $19/mes
+          $97/año + $19/mes
         </Link>
         <p className="text-[11px] text-[#6C6C6C] mt-1 text-center leading-snug">
-          Acceso parcial hasta completar el pago completo ($453)
+          Acceso parcial hasta completar el pago completo ($306)
         </p>
       </div>
     </div>
