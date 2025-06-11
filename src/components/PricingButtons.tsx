@@ -52,7 +52,7 @@ export default function PricingButtons() {
           className="bg-[#6C6C6C] text-white rounded-lg text-xs font-semibold py-2 w-full text-center transition hover:bg-[#555555]"
           onClick={handleClick40}
         >
-          $97/año + $19/mes
+          $97 (inicio) + $19/mes
         </Link>
         <p className="text-[11px] text-[#6C6C6C] mt-1 text-center leading-snug">
           Acceso parcial hasta completar el pago completo ($306)
