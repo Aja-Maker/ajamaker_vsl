@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Instrument_Sans } from 'next/font/google'
-import "./globals.css";
+import "../globals.css";
 import ClientMetaPixel from "@/components/ClientMetaPixel";
 import Header from "@/components/Header";
 

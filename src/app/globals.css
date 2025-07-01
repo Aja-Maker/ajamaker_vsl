@@ -2,6 +2,9 @@
 @import "tailwindcss";
 
 :root {
+  --font-instrument-sans: 'Instrument Sans', sans-serif;
+  --font-poppins: 'Poppins', sans-serif;
+
   --background: #F9F7EE;
   --foreground: #171717;
 
@@ -12,5 +15,5 @@
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-instrument-sans);
+  font-family: var(--font-poppins), var(--font-instrument-sans);
 }

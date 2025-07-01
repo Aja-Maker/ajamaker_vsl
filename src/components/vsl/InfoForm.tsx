@@ -4,7 +4,7 @@ import { z } from 'zod';
 import InputField from '../FormInput';
 import PhoneField from '../PhoneField';
 import { useState } from 'react';
-import { addBrevoContact } from '@/app/actions' 
+import { addBrevoContact } from '@/app/(vsl-ajamaker)/actions' 
 
 const infoFormSchema = z.object({
   name: z
@@ -39,7 +39,7 @@ interface InfoFormProps {
   onSubmitSuccess?: () => void;
 }
 
-const countryOptions = [
+export const countryOptions = [
   { code: 'AR', name: 'Argentina', dial: '+54' },
   { code: 'BO', name: 'Bolivia', dial: '+591' },
   { code: 'BR', name: 'Brasil', dial: '+55' },

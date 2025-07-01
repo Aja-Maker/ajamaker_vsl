@@ -43,7 +43,7 @@ export default function PhoneField({
 
   return (
     <div className="space-y-1">
-      <label className="text-sm font-medium text-gray-700 text-left">{label}</label>
+      <label className="text-xs font-light text-gray-700 text-left">{label}</label>
       <div className="flex gap-2">
         <div className="w-32">
           <CustomSelectField
