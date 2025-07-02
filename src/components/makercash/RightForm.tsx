@@ -34,6 +34,11 @@ export default function RightForm() {
     } else {
       setSnackbar({ type: 'success', message: '✅ Te has registrado exitosamente al webinar.' });
       reset();
+      const ReactPixel = (await import("react-facebook-pixel")).default;
+      ReactPixel.track("Lead", {
+        value: 0,
+        currency:'USD'
+      });
     }
 
     setTimeout(() => setSnackbar(null), 5000); // Hide after 5s
