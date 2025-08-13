@@ -115,8 +115,8 @@ export default function RightForm() {
               className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-1.5"
             >
               <option value="">Selecciona una opción</option>
-              <option value="jul30">Miércoles 30 de julio, 3 PM</option>
-              <option value="aug6">Miércoles 6 de agosto, 3 PM</option>
+              <option value="first">Lunes 25 de agosto, 3 PM</option>
+              <option value="second">Sábado 30 de agosto, 3 PM</option>
             </select>
             {errors.session && <p className="text-xs text-red-500 mt-1">{errors.session.message}</p>}
           </div>

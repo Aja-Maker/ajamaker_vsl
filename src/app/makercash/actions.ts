@@ -85,13 +85,13 @@ export async function addBrevoContact({ firstName, lastName, email, whatsapp, qu
 
 const GOOGLE_CALENDAR_ID = process.env.GOOGLE_CALENDAR_ID!;
 const EVENT_IDS: Record<string, string> = {
-  jul30: process.env.JUL30EVENT_ID!,
-  aug6: process.env.AUG6EVENT_ID!,
+  first: process.env.FIRSTEVENT_ID!,
+  second: process.env.SECONDEVENT_ID!,
 };
 
 const SESSION_LABELS: Record<string, string> = {
-  jul30: 'Miércoles 30 de julio, 3 PM',
-  aug6: 'Miércoles 6 de agosto, 3 PM',
+  first: 'Miércoles 30 de julio, 3 PM',
+  second: 'Miércoles 6 de agosto, 3 PM',
 };
 
 export async function submitLead(formData: any) {
@@ -112,7 +112,7 @@ export async function submitLead(formData: any) {
 
     // 1. Send notification email to Marvin
     await sendNotificationEmail({
-      to: 'marvin.solis@ajamaker.com',
+      to: 'ariel.soliscs@gmail.com',
       subject: `Nuevo registro: ${data.firstName} ${data.lastName}`,
       htmlContent: `
         <div style="font-family: sans-serif; line-height: 1.5; color: #111;">

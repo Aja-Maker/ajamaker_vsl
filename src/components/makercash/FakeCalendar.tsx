@@ -4,8 +4,9 @@ import React from 'react';
 
 const daysOfWeek = ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom'];
 const highlightedDays = [
-  { day: 30, month: 'julio' },
-  { day: 6, month: 'agosto' }
+  // { day: 30, month: 'julio' },
+  { day: 25, month: 'agosto' },
+  { day: 30, month: 'agosto' }
 ];
 
 export default function FakeCalendar() {
@@ -55,7 +56,7 @@ export default function FakeCalendar() {
   return (
     <div className="w-full max-w-xs mx-auto bg-white px-4 py-5 rounded-xl shadow-sm border border-gray-200 scale-95">
       <h3 className="text-xs font-semibold text-center text-[#0F172A] mb-3">
-        Fechas del webinar - Julio/Agosto 2025
+        Fechas del webinar - Agosto 2025
       </h3>
 
       {/* Week headers */}
@@ -68,8 +69,8 @@ export default function FakeCalendar() {
       </div>
 
       {/* Month Grids */}
-      {buildCalendar(14, 31, 0, 'julio')}  {/* July 8 is Tuesday (index 1) */}
-      {buildCalendar(1, 10, 4, 'agosto')}  {/* August 1 is Friday (index 4) */}
+      {/* {buildCalendar(14, 31, 0, 'julio')}  July 8 is Tuesday (index 1) */}
+      {buildCalendar(10, 31, 6, 'agosto')}  {/* August 1 is Friday (index 4) */}
     </div>
   );
 }
