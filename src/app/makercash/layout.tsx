@@ -14,6 +14,9 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "MAKERCASH",
   description: "La nueva forma de atraer y fidelizar clientes sin campañas costosas",
+  icons: {
+    icon: "/icons/makercash.svg",
+  },
 };
 
 export default function RootLayout({
@@ -24,6 +27,7 @@ export default function RootLayout({
   return (
     <html lang="es">
       <head>
+        <link rel="icon" href="/icons/makercash.svg" />
         {/* Meta Pixel Code */}
         <script
           dangerouslySetInnerHTML={{

@@ -110,7 +110,7 @@ export async function submitLead(formData: any) {
   try {
     const sessionLabel = SESSION_LABELS[data.session];
 
-    // 1. Send notification email to Marvin
+    // 1. Send notification email to Ariel
     await sendNotificationEmail({
       to: 'ariel.soliscs@gmail.com',
       subject: `Nuevo registro: ${data.firstName} ${data.lastName}`,
