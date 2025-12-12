@@ -112,7 +112,7 @@ export async function submitLead(formData: any) {
 
     // 1. Send notification email to Ariel
     await sendNotificationEmail({
-      to: 'ariel.soliscs@gmail.com',
+      to: 'marvin.tarrico@gmail.com',
       subject: `Nuevo registro: ${data.firstName} ${data.lastName}`,
       htmlContent: `
         <div style="font-family: sans-serif; line-height: 1.5; color: #111;">
@@ -136,12 +136,12 @@ export async function submitLead(formData: any) {
     });
 
     // 3. Add to Google Calendar Event
-    await addAttendeeToEvent({
-      calendarId: GOOGLE_CALENDAR_ID,
-      eventId: EVENT_IDS[data.session],
-      attendeeEmail: data.email,
-      attendeeName: `${data.firstName} ${data.lastName}`,
-    });
+    // await addAttendeeToEvent({
+    //   calendarId: GOOGLE_CALENDAR_ID,
+    //   eventId: EVENT_IDS[data.session],
+    //   attendeeEmail: data.email,
+    //   attendeeName: `${data.firstName} ${data.lastName}`,
+    // });
 
     return { success: true };
   } catch (err: any) {

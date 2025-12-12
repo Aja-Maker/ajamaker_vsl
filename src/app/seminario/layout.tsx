@@ -12,10 +12,10 @@ const poppins = Poppins({
 })
 
 export const metadata: Metadata = {
-  title: "MAKERCASH",
-  description: "La nueva forma de atraer y fidelizar clientes sin campañas costosas",
+  title: "SEMINARIO SALUD INTEGRAL",
+  description: "Una semana para conocer de salud de la persona: cuerpo sano, tu mente en paz y tu espíritu libre y sobre todo",
   icons: {
-    icon: "/icons/makercash.svg",
+    icon: "/icons/aform_cube.svg",
   },
 };
 
@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="es">
       <head>
-        <link rel="icon" href="/icons/makercash.svg" />
+        <link rel="icon" href="/icons/aform_cube.svg" />
         {/* Meta Pixel Code */}
         <script
           dangerouslySetInnerHTML={{

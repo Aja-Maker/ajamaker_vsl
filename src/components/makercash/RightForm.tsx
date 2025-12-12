@@ -5,9 +5,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { businessLeadSchema, BusinessLead } from '@/lib/makercash/business_lead_schema';
 import { countryOptions } from '@/components/vsl/InfoForm';
-import FakeCalendar from '@/components/makercash/FakeCalendar';
 import PhoneField from '@/components/PhoneField';
-import { submitLead } from '@/app/makercash/actions';
+import { submitLead } from '@/app/seminario/actions';
 
 export default function RightForm() {
   const [prefix, setPrefix] = useState('+506');
@@ -21,6 +20,10 @@ export default function RightForm() {
     formState: { errors },
   } = useForm<BusinessLead>({
     resolver: zodResolver(businessLeadSchema),
+    defaultValues: {
+      businessName: 'Seminario Salud Integral',
+      session: 'first',
+    },
   });
 
   const onSubmit = async (data: BusinessLead) => {
@@ -39,45 +42,58 @@ export default function RightForm() {
         value: 0,
         currency:'USD'
       });
+      window.location.href = 'https://chat.whatsapp.com/Gpqv7rxMXZmAzr7R9xnjjb'
     }
 
     setTimeout(() => setSnackbar(null), 5000); // Hide after 5s
   };
 
   return (
-    <div className="space-y-6 relative">
-      <section className="bg-white p-4 md:p-6 rounded-xl shadow-[0px_2px_10px_2px_rgba(0,_0,_0,_0.1)] w-full max-w-sm mx-auto">
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 text-sm">
+    <div className="space-y-4 relative">
+      <section className="bg-[#F8FAFC] p-4 rounded-2xl border border-[#E2E8F0] w-full">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <p className="text-sm text-[#475569]">
+            Completá tus datos para recibir toda la información del Seminario Salud Integral directamente en tu WhatsApp y correo.
+          </p>
           {/* First Name */}
           <div>
-            <label htmlFor="firstName" className="block text-xs font-light text-gray-700">Nombre *</label>
+            <label htmlFor="firstName" className="block text-xs font-semibold text-[#334155] uppercase tracking-wide">
+              Nombre *
+            </label>
             <input
               {...register('firstName')}
               id="firstName"
-              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-1.5"
+              className="mt-1 block w-full rounded-xl border border-[#CBD5F5] px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0EA5E9]"
+              placeholder="Tu nombre"
             />
             {errors.firstName && <p className="text-xs text-red-500 mt-1">{errors.firstName.message}</p>}
           </div>
 
           {/* Last Name */}
           <div>
-            <label htmlFor="lastName" className="block text-xs font-light text-gray-700">Apellido *</label>
+            <label htmlFor="lastName" className="block text-xs font-semibold text-[#334155] uppercase tracking-wide">
+              Apellido *
+            </label>
             <input
               {...register('lastName')}
               id="lastName"
-              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-1.5"
+              className="mt-1 block w-full rounded-xl border border-[#CBD5F5] px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0EA5E9]"
+              placeholder="Tu apellido"
             />
             {errors.lastName && <p className="text-xs text-red-500 mt-1">{errors.lastName.message}</p>}
           </div>
 
           {/* Email */}
           <div>
-            <label htmlFor="email" className="block text-xs font-light text-gray-700">Correo electrónico *</label>
+            <label htmlFor="email" className="block text-xs font-semibold text-[#334155] uppercase tracking-wide">
+              Correo electrónico *
+            </label>
             <input
               {...register('email')}
               type="email"
               id="email"
-              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-1.5"
+              className="mt-1 block w-full rounded-xl border border-[#CBD5F5] px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0EA5E9]"
+              placeholder="tu@email.com"
             />
             {errors.email && <p className="text-xs text-red-500 mt-1">{errors.email.message}</p>}
           </div>
@@ -85,7 +101,7 @@ export default function RightForm() {
           {/* Phone */}
           <PhoneField
             name="phone"
-            label="Número de WhatsApp (para comunicación directa, no enviamos spam) *"
+            label="Número de WhatsApp (para confirmar tu acceso) *"
             value=""
             onChange={(val) => setValue('phone', val)}
             prefix={prefix}
@@ -95,43 +111,21 @@ export default function RightForm() {
             register={register}
           />
 
-          {/* Business Name */}
-          <div>
-            <label htmlFor="businessName" className="block text-xs font-light text-gray-700">Nombre del negocio *</label>
-            <input
-              {...register('businessName')}
-              id="businessName"
-              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-1.5"
-            />
-            {errors.businessName && <p className="text-xs text-red-500 mt-1">{errors.businessName.message}</p>}
-          </div>
-
-          {/* Session */}
-          <div>
-            <label htmlFor="session" className="block text-xs font-light text-gray-700">Elige tu sesión *</label>
-            <select
-              {...register('session')}
-              id="session"
-              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-1.5"
-            >
-              <option value="">Selecciona una opción</option>
-              <option value="first">Lunes 25 de agosto, 3 PM</option>
-              <option value="second">Sábado 30 de agosto, 3 PM</option>
-            </select>
-            {errors.session && <p className="text-xs text-red-500 mt-1">{errors.session.message}</p>}
-          </div>
+          <input type="hidden" {...register('businessName')} />
+          <input type="hidden" {...register('session')} />
 
           <button
             type="submit"
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-light py-1.5 rounded-md transition"
+            className="w-full rounded-full bg-[#0F172A] text-white font-semibold uppercase tracking-wide py-3 text-sm shadow-md shadow-[#0F172A]/25"
           >
-            Reservar mi espacio
+            Reservar mi acceso
           </button>
+
+          <p className="text-[11px] text-[#94A3B8] text-center">
+            Nunca compartimos tus datos. Recibirás recordatorios y el enlace privado del evento.
+          </p>
         </form>
       </section>
-
-      {/* Calendar */}
-      <FakeCalendar />
 
       {/* Snackbar */}
       {snackbar && (
