@@ -38,7 +38,7 @@ export default function RightForm() {
       setSnackbar({ type: 'success', message: '✅ Te has registrado exitosamente al webinar.' });
       reset();
       const ReactPixel = (await import("react-facebook-pixel")).default;
-      ReactPixel.track("Lead", {
+      ReactPixel.track("Purchase", {
         value: 0,
         currency:'USD'
       });
