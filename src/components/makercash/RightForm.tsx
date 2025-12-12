@@ -39,7 +39,7 @@ export default function RightForm() {
       reset();
       const ReactPixel = (await import("react-facebook-pixel")).default;
       ReactPixel.track("Purchase", {
-        value: 0,
+        value: 30,
         currency:'USD'
       });
       window.location.href = 'https://chat.whatsapp.com/Gpqv7rxMXZmAzr7R9xnjjb'
