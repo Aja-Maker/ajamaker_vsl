@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Poppins } from 'next/font/google'
 import "../globals.css";
-import ClientMetaPixel from "@/components/ClientMetaPixel";
 import { addAttendeeToEvent } from "@/lib/google/addAtendeeToEvent";
 import { Toaster } from "@/components/ui/sonner";
+import ClientMetaPixelLuxury from "@/components/clips/ClientMetaPixelLuxury";
 
 const poppins = Poppins({
   weight: ['400', '500', '600', '700'],
@@ -44,7 +44,7 @@ export default function RootLayout({
               s.parentNode.insertBefore(t,s)}(window, document,
               'script',
               'https://connect.facebook.net/en_US/fbevents.js');
-              fbq('init', ${process.env.FACEBOOK_PIXEL_ID!});
+              fbq('init', ${process.env.FACEBOOK_PIXEL_ID_LUXURY!});
               fbq('track', 'PageView');
             `,
           }}
@@ -60,7 +60,7 @@ export default function RootLayout({
         {/* End Meta Pixel Code */}
       </head>
       <body className={`${poppins.variable} font-sans antialiased`}>
-        <ClientMetaPixel/>
+        <ClientMetaPixelLuxury/>
         {children}
         <Toaster/>
       </body>
