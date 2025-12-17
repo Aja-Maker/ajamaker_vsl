@@ -30,7 +30,7 @@ export function ClipsVideo({ onCtaClick }: SectionProps) {
       <div className="rounded-2xl overflow-hidden border border-white/10 bg-black/40">
         <div className="relative w-full pb-[56.25%]">
           <iframe
-            src="https://player.vimeo.com/video/1086211660?h=ffea09936a&title=0&byline=0&portrait=0"
+            src="https://player.vimeo.com/video/1147152853?h=ffea09936a&title=0&byline=0&portrait=0"
             className="absolute inset-0 w-full h-full"
             allow="autoplay; fullscreen; picture-in-picture"
             allowFullScreen
