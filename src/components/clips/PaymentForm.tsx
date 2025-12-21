@@ -56,6 +56,9 @@ const countries = [
   { value: 'PA', label: 'Panama' },
   { value: 'ES', label: 'Spain' },
   { value: 'GB', label: 'United Kingdom' },
+  { value: 'PR', label: 'Puerto Rico' },
+  { value: 'DO', label: 'Dominican Republic' },
+  { value: 'JM', label: 'Jamaica' },
 ];
 
 declare global {
