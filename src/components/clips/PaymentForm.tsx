@@ -200,10 +200,10 @@ export default function PaymentForm({ onSuccess }: { onSuccess?: (intentId: stri
       if (status === 'succeeded') {
         const ReactPixel = (await import("react-facebook-pixel")).default;
         ReactPixel.track("Purchase", {
-          value: 30,
+          value: 10,
           currency:'USD'
         });
-        toast.success('Payment done successfully');
+        toast.success('Payment done successfully. Sending email... Do not close the window');
         form.reset(defaultValues);
         onSuccess?.(intentRes.data.id);
         await sendNotificationEmail({to: values.email, subject: 'LUXURY VIDEOS', name: values.name, htmlContent:'', payment_intent_id: intentRes.data.id})

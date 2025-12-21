@@ -62,7 +62,7 @@ export default function RootLayout({
       <body className={`${poppins.variable} font-sans antialiased`}>
         <ClientMetaPixelLuxury/>
         {children}
-        <Toaster/>
+        <Toaster position="bottom-center" richColors/>
       </body>
     </html>
   );
