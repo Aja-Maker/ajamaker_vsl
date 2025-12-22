@@ -11,9 +11,9 @@ const sectionBase = 'rounded-3xl border border-[#1F2937] bg-[#0B0E16] text-white
 export function ClipsHero({ onCtaClick }: SectionProps) {
   return (
     <section className={`${sectionBase} text-center space-y-4`}>
-      <p className="text-xs uppercase tracking-[0.4em] text-[#FACC15]">just december</p>
-      <h1 className="text-3xl font-semibold leading-tight">100,000+ VIRAL Luxury Lifestyle Reels Pack</h1>
-      <p className="text-base text-white/80">Instant download · 75% off</p>
+      <p className="text-xs uppercase tracking-[0.4em] text-[#FACC15]">Sólo por diciembre</p>
+      <h1 className="text-3xl font-semibold leading-tight">Paquete de más de 100,000 reels virales de estilo de vida de lujo</h1>
+      <p className="text-base text-white/80">Descarga instantánea · 75% off</p>
       {/* <CTAButton onClick={onCtaClick} variant="gradient" /> */}
     </section>
   );
@@ -23,9 +23,9 @@ export function ClipsVideo({ onCtaClick }: SectionProps) {
   return (
     <section className={`${sectionBase} space-y-4`}>
       <div>
-        <p className="text-xs uppercase tracking-[0.3em] text-[#F97316]">see inside</p>
-        <h2 className="text-xl font-semibold">What will you get?</h2>
-        <p className="text-sm text-white/70">Watch below.</p>
+        <p className="text-xs uppercase tracking-[0.3em] text-[#F97316]">Ve dentro del paquete</p>
+        <h2 className="text-xl font-semibold">¿Que obtengo?</h2>
+        <p className="text-sm text-white/70">Galería de más de 100,000 videos virales de estilo de vida de lujo. Ve abajo</p>
       </div>
       <div className="rounded-2xl overflow-hidden border border-white/10 bg-black/40">
         <div className="relative w-full pb-[56.25%]">
@@ -38,7 +38,7 @@ export function ClipsVideo({ onCtaClick }: SectionProps) {
           />
         </div>
       </div>
-      <CTAButton onClick={onCtaClick} variant="gradient" label='GET ACCESS' />
+      <CTAButton onClick={onCtaClick} variant="gradient" label='OBTENER ACCESO' />
     </section>
   );
 }
@@ -46,31 +46,31 @@ export function ClipsVideo({ onCtaClick }: SectionProps) {
 export function ClipsPricing({ onCtaClick }: SectionProps) {
   return (
     <section className={`${sectionBase} text-center space-y-3`}>
-      <p className="text-xs uppercase tracking-[0.3em] text-[#FACC15]">Limited Offer</p>
-      <h2 className="text-2xl font-semibold">Get the entire pack for $10</h2>
+      <p className="text-xs uppercase tracking-[0.3em] text-[#FACC15]">Oferta por tiempo limitado</p>
+      <h2 className="text-2xl font-semibold">Obtén la galería completa por sólo $10</h2>
       <p className="text-sm text-white/70">
-        Regular price <span className="line-through">$40</span> — today only <span className="font-semibold">$10</span> (75% off)
+        Precio regular <span className="line-through">$40</span> — Sólo por diciembre <span className="font-semibold">$10</span> (75% off)
       </p>
       <div className="flex items-center justify-center gap-3">
         <span className="text-3xl font-semibold text-white">$10</span>
-        <span className="text-xs uppercase tracking-[0.2em] text-white/60 bg-white/10 px-3 py-1 rounded-full">one-time</span>
+        <span className="text-xs uppercase tracking-[0.2em] text-white/60 bg-white/10 px-3 py-1 rounded-full">una vez</span>
       </div>
-      <CTAButton onClick={onCtaClick} variant="gradient" label='GET ACCESS'/>
+      <CTAButton onClick={onCtaClick} variant="gradient" label='OBTENER ACCESO'/>
     </section>
   );
 }
 
 export function ClipsAudience({ onCtaClick }: SectionProps) {
   const items = [
-    'Entrepreneurs & Business Influencers',
-    'Luxury & Motivation pages',
-    'Personal Brand Builders',
-    'Social Media Managers',
-    'Youtube shorts creators',
+    'Emprendedores e influencers de negocios',
+    'Páginas de lujo y motivación',
+    'Creadores de marca personal',
+    'Gestores de redes sociales',
+    'Creadores de Shorts para YouTube',
   ];
   return (
     <section className={sectionBase}>
-      <h2 className="text-xl font-semibold mb-3">Perfect for luxury style content</h2>
+      <h2 className="text-xl font-semibold mb-3">Perfecto para contenido de estilo de vida de lujo</h2>
       <ul className="space-y-2 text-sm text-white/80">
         {items.map((item) => (
           <li key={item} className="flex items-start gap-2">
@@ -86,15 +86,15 @@ export function ClipsAudience({ onCtaClick }: SectionProps) {
 
 export function ClipsBenefits({ onCtaClick }: SectionProps) {
   const benefits = [
-    'Post daily luxury reels with zero editing',
-    'Boost engagement and brand image',
-    'Perfect for motivational and money niche creators',
-    'Save hours, upload instantly',
-    'Go viral with stylish aesthetic visuals',
+    'Publica reels de lujo a diario sin necesidad de edición',
+    'Aumenta el engagement y la imagen de tu marca',
+    'Perfecto para creadores del nicho motivacional y de dinero',
+    'Ahorra horas y sube contenido al instante',
+    'Hazte viral con visuales estéticos y con estilo',
   ];
   return (
     <section className={sectionBase}>
-      <h2 className="text-xl font-semibold mb-3">Why you&apos;ll love it</h2>
+      <h2 className="text-xl font-semibold mb-3">Por qué lo amarás</h2>
       <ul className="space-y-2 text-sm text-white/80">
         {benefits.map((benefit) => (
           <li key={benefit} className="flex items-start gap-3">
@@ -110,16 +110,16 @@ export function ClipsBenefits({ onCtaClick }: SectionProps) {
 
 export function ClipsReviews({ onCtaClick }: SectionProps) {
   const reviews = [
-    'Great! Definitely worth the money',
-    'Loads of good ideas for everyone.',
-    'I just love all these reels and pretty awesome!',
-    'Everything went very well 10/10',
+    '¡Genial! Definitivamente vale la pena el dinero',
+    'Muchísimas buenas ideas para todos',
+    '¡Simplemente amo todos estos reels, son increíbles!',
+    'Todo salió muy bien, 10/10',
   ];
   return (
     <section className={`${sectionBase} space-y-4`}>
       <div>
-        <p className="uppercase text-xs tracking-[0.3em] text-[#F97316]">Social proof</p>
-        <h2 className="text-xl font-semibold">They&apos;re obsessed with the pack</h2>
+        <p className="uppercase text-xs tracking-[0.3em] text-[#F97316]">Testimonios de nuestros compradores</p>
+        <h2 className="text-xl font-semibold">Están obsesionados con nuestra galería.</h2>
       </div>
       <div className="grid gap-4">
         {reviews.map((review) => (
@@ -140,17 +140,17 @@ export function ClipsReviews({ onCtaClick }: SectionProps) {
 
 export function ClipsBonus({ onCtaClick }: SectionProps) {
   const bonuses = [
-    'YouTube Tips to Increase Reach & Ad Revenue',
-    'TikTok Ads Mastery: How to Create Viral Campaigns that Sell',
-    'Instagram Masterclass: Build, Engage and Grow Your Audience',
-    'Hit 100K Views on Instagram: The Proven Roadmap',
-    'How to use the gallery',
+    'Consejos de YouTube para aumentar el alcance y los ingresos por anuncios',
+    'Dominio de anuncios en TikTok: cómo crear campañas virales que venden',
+    'Masterclass de Instagram: construye, conecta y haz crecer tu audiencia',
+    'Alcanza 100K visualizaciones en Instagram: la hoja de ruta probada',
+    'Cómo usar la galería',
   ];
   return (
     <section className={`${sectionBase} border-[#F97316]`}>
-      <p className="text-xs uppercase tracking-[0.4em] text-[#F97316]">Bonus inside</p>
-      <h2 className="text-2xl font-semibold mt-2">Receive our exclusive gifts just for you!</h2>
-      <p className="text-sm text-white/70 mt-2">Valued at $200+, included free with your purchase.</p>
+      <p className="text-xs uppercase tracking-[0.4em] text-[#F97316]">Bonos incluídos</p>
+      <h2 className="text-2xl font-semibold mt-2">¡Recibe nuestros regalos exclusivos solo para ti!</h2>
+      <p className="text-sm text-white/70 mt-2">Valorado en más de $200, incluido gratis con tu compra.</p>
       <ul className="space-y-2 text-sm mt-4 text-white/85">
         {bonuses.map((bonus) => (
           <li key={bonus} className="flex items-start gap-2">
@@ -165,139 +165,139 @@ export function ClipsBonus({ onCtaClick }: SectionProps) {
 }
 
 export function ClipsTerms({ onCtaClick }: SectionProps) {
-  const terms = `Last Updated: 15/12/2025
+  const terms = `Última actualización: 15/12/2025
 
-By purchasing, accessing, or using this product, you agree to be bound by the following Terms and Conditions. If you do not agree with any part of these Terms, do not purchase or use this product.
+Al comprar, acceder o utilizar este producto, aceptas quedar legalmente vinculado por los siguientes Términos y Condiciones. Si no estás de acuerdo con alguna parte de estos Términos, no compres ni utilices este producto.
 
-1. Nature of the Product
+1. Naturaleza del producto
 
-This product provides temporary access to a collection of digital video files (“Content”) made available via a third-party cloud storage platform (e.g., Google Drive).
+Este producto proporciona acceso temporal a una colección de archivos de video digitales (“Contenido”) disponibles a través de una plataforma de almacenamiento en la nube de terceros (por ejemplo, Google Drive).
 
-You acknowledge and agree that:
+Reconoces y aceptas que:
 
-You are purchasing access, not ownership.
+Estás comprando acceso, no propiedad.
 
-Access is provided “as is” and “as available.”
+El acceso se proporciona “tal cual” y “según disponibilidad”.
 
-2. Ownership Disclaimer
+2. Descargo de responsabilidad sobre la propiedad
 
-The seller is NOT the owner, creator, or copyright holder of the Content.
+El vendedor NO es el propietario, creador ni titular de los derechos de autor del Contenido.
 
-All rights, ownership, and control of the Content belong to the original owner(s).
+Todos los derechos, propiedad y control del Contenido pertenecen a su(s) propietario(s) original(es).
 
-The seller does not claim any intellectual property rights over the Content.
+El vendedor no reclama ningún derecho de propiedad intelectual sobre el Contenido.
 
-The seller acts solely as a facilitator of access.
+El vendedor actúa únicamente como facilitador del acceso.
 
-3. Third-Party Hosting & Availability
+3. Alojamiento de terceros y disponibilidad
 
-The Content is hosted on a third-party platform not owned, operated, or controlled by the seller.
+El Contenido está alojado en una plataforma de terceros que no es propiedad, ni está operada o controlada por el vendedor.
 
-You expressly acknowledge that:
+Reconoces expresamente que:
 
-The original owner or hosting provider may remove, restrict, modify, or terminate access to the Content at any time, with or without notice.
+El propietario original o el proveedor de alojamiento puede eliminar, restringir, modificar o finalizar el acceso al Contenido en cualquier momento, con o sin previo aviso.
 
-The seller has no control over the availability, duration, or continued existence of the Content.
+El vendedor no tiene control sobre la disponibilidad, duración o existencia continua del Contenido.
 
-Access may be temporary, limited, or discontinued at any moment.
+El acceso puede ser temporal, limitado o interrumpido en cualquier momento.
 
-4. Buyer Responsibility to Download
+4. Responsabilidad del comprador de descargar el contenido
 
-Upon receiving access, it is solely your responsibility to:
+Una vez que recibes el acceso, es únicamente tu responsabilidad:
 
-Download any and all Content you wish to keep.
+Descargar todo el Contenido que desees conservar.
 
-Securely store the downloaded files on your own devices or storage systems.
+Almacenar de forma segura los archivos descargados en tus propios dispositivos o sistemas de almacenamiento.
 
-If you fail to download the Content before access is revoked, removed, or restricted for any reason, the seller has no obligation and no ability to restore access or provide replacement files.
+Si no descargas el Contenido antes de que el acceso sea revocado, eliminado o restringido por cualquier motivo, el vendedor no tiene obligación ni capacidad de restaurar el acceso o proporcionar archivos de reemplazo.
 
-5. No Guarantees of Ongoing Access
+5. Sin garantías de acceso continuo
 
-The seller makes no guarantees regarding:
+El vendedor no ofrece garantías sobre:
 
-The duration of access
+La duración del acceso
 
-The number of files available at any given time
+La cantidad de archivos disponibles en un momento dado
 
-The permanence of the Content
+La permanencia del Contenido
 
-Future updates, replacements, or re-uploads
+Actualizaciones futuras, reemplazos o nuevas cargas
 
-Access may end at any time, for any reason, without compensation.
+El acceso puede finalizar en cualquier momento, por cualquier motivo y sin compensación.
 
-6. No Refund Policy (Strict)
+6. Política de no reembolso (estricta)
 
-ALL SALES ARE FINAL.
+TODAS LAS VENTAS SON FINALES.
 
-You expressly agree that:
+Aceptas expresamente que:
 
-There are no refunds, no chargebacks, and no exchanges under any circumstances.
+No hay reembolsos, contracargos ni cambios bajo ninguna circunstancia.
 
-This includes, but is not limited to:
+Esto incluye, entre otros casos:
 
-Loss of access
+Pérdida de acceso
 
-Removal of Content
+Eliminación del Contenido
 
-Dissatisfaction with the Content
+Insatisfacción con el Contenido
 
-Failure to download files in time
+No descargar los archivos a tiempo
 
-Technical issues beyond the seller’s control
+Problemas técnicos fuera del control del vendedor
 
-By completing your purchase, you waive any right to dispute or reverse the payment.
+Al completar tu compra, renuncias a cualquier derecho de disputar o revertir el pago.
 
-7. Limitation of Liability
+7. Limitación de responsabilidad
 
-To the maximum extent permitted by law:
+En la máxima medida permitida por la ley:
 
-The seller shall not be liable for any direct, indirect, incidental, consequential, or special damages arising from:
+El vendedor no será responsable por daños directos, indirectos, incidentales, consecuentes o especiales derivados de:
 
-Use or inability to use the Content
+El uso o la imposibilidad de usar el Contenido
 
-Loss of access
+La pérdida de acceso
 
-Removal of files
+La eliminación de archivos
 
-Third-party actions
+Acciones de terceros
 
-The seller’s total liability, if any, shall never exceed the amount paid for access.
+La responsabilidad total del vendedor, si existiera, nunca excederá el monto pagado por el acceso.
 
-8. No Warranty
+8. Sin garantía
 
-The Content is provided without warranties of any kind, express or implied, including but not limited to:
+El Contenido se proporciona sin garantías de ningún tipo, expresas o implícitas, incluyendo, entre otras:
 
-Merchantability
+Comercialización
 
-Fitness for a particular purpose
+Idoneidad para un propósito particular
 
-Non-infringement
+No infracción
 
-Availability or completeness
+Disponibilidad o integridad del Contenido
 
-9. User Acceptance of Risk
+9. Aceptación del riesgo por parte del usuario
 
-By purchasing this product, you explicitly acknowledge and accept that:
+Al comprar este producto, reconoces y aceptas explícitamente que:
 
-You understand the seller is not the owner.
+Entiendes que el vendedor no es el propietario del Contenido.
 
-You understand access may end at any time.
+Entiendes que el acceso puede finalizar en cualquier momento.
 
-You accept full responsibility for downloading and storing the Content.
+Aceptas total responsabilidad por descargar y almacenar el Contenido.
 
-You accept that no refunds will be issued for any reason.
+Aceptas que no se emitirán reembolsos por ningún motivo.
 
-10. Changes to Terms
+10. Cambios en los términos
 
-The seller reserves the right to modify these Terms and Conditions at any time. Continued use of the product constitutes acceptance of the updated Terms.
+El vendedor se reserva el derecho de modificar estos Términos y Condiciones en cualquier momento. El uso continuado del producto constituye la aceptación de los Términos actualizados.
 
-11. Governing Law
+11. Legislación aplicable
 
-These Terms shall be governed and interpreted in accordance with the laws of the seller’s jurisdiction, without regard to conflict of law principles.`;
+Estos Términos se regirán e interpretarán de acuerdo con las leyes de la jurisdicción del vendedor, sin considerar principios de conflicto de leyes.`;
 
   return (
     <section className={`${sectionBase} space-y-4`}>
-      <h2 className="text-xl font-semibold">TERMS AND CONDITIONS</h2>
+      <h2 className="text-xl font-semibold">Términos y condiciones</h2>
       <div className="text-xs leading-relaxed text-white/75 whitespace-pre-wrap">{terms}</div>
       {/* <CTAButton onClick={onCtaClick} className="mt-4" /> */}
     </section>
@@ -307,14 +307,14 @@ These Terms shall be governed and interpreted in accordance with the laws of the
 export function ClipsFinalAck({ onCtaClick }: SectionProps) {
   return (
     <section className={`${sectionBase} text-center`}>
-      <p className="text-xs uppercase tracking-[0.4em] text-[#FACC15]">Final acknowledgment</p>
-      <h2 className="text-2xl font-semibold my-4">By purchasing and accessing this product, you confirm that you have read, understood, and agreed to all the above Terms and Conditions in full.</h2>
+      <p className="text-xs uppercase tracking-[0.4em] text-[#FACC15]">Aceptación final</p>
+      <h2 className="text-2xl font-semibold my-4">Al comprar y acceder a este producto, confirmas que has leído, comprendido y aceptado en su totalidad todos los Términos y Condiciones anteriores.</h2>
       <p className="text-[10px] text-white/70 mt-3">
-        If you bought and encounter an error contact{' '}
+        Si compraste y no obtuviste tu correo de acceso, escribe a{' '}
         <a href="mailto:dmaditative.state@gmail.com" className="underline text-[#F97316]">
           dmaditative.state@gmail.com
         </a>{' '}
-        to receive your access
+        para recibir tu acceso.
       </p>
       {/* <CTAButton onClick={onCtaClick} variant="gradient" /> */}
     </section>

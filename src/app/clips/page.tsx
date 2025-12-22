@@ -36,7 +36,7 @@ export default function ClipsPage() {
       </div>
 
       <div className="fixed bottom-0 inset-x-0 px-4 pb-4 pt-2 bg-gradient-to-t from-black via-black/60 to-transparent backdrop-blur-xl border-t border-white/10">
-        <CTAButton onClick={openForm} variant="gradient" label='GET ACCESS'/>
+        <CTAButton onClick={openForm} variant="gradient" label='OBTENER ACCESO'/>
       </div>
 
       <PaymentFormDrawer open={formOpen} onClose={closeForm}>

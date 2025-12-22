@@ -24,6 +24,7 @@ import {
   getPaymentIntent,
   sendNotificationEmail,
 } from '@/app/clips/actions';
+import { Separator } from '@radix-ui/react-select';
 
 const paymentSchema = z.object({
   name: z.string().min(2, 'Nombre requerido').trim(),
@@ -48,16 +49,16 @@ const PRODUCT_PRICE = 1000; // cents USD (server-enforced)
 
 const countries = [
   { value: 'CR', label: 'Costa Rica' },
-  { value: 'MX', label: 'Mexico' },
+  { value: 'MX', label: 'México' },
   { value: 'CO', label: 'Colombia' },
   { value: 'AR', label: 'Argentina' },
   { value: 'CL', label: 'Chile' },
-  { value: 'PE', label: 'Peru' },
+  { value: 'PE', label: 'Perú' },
   { value: 'PA', label: 'Panama' },
-  { value: 'ES', label: 'Spain' },
+  { value: 'ES', label: 'España' },
   { value: 'GB', label: 'United Kingdom' },
   { value: 'PR', label: 'Puerto Rico' },
-  { value: 'DO', label: 'Dominican Republic' },
+  { value: 'DO', label: 'República Dominicana' },
   { value: 'JM', label: 'Jamaica' },
 ];
 
@@ -134,13 +135,13 @@ export default function PaymentForm({ onSuccess }: { onSuccess?: (intentId: stri
   const handle3DS = async (paymentIntentId: string) => {
     const sdkReady = await loadOnvoSdk();
     if (!sdkReady || !window.ONVO) {
-      toast.error('3DS verification not able to load, try again please.');
+      toast.error('No se pudo cargar la verificación 3DS, por favor intenta nuevamente.');
       return { status: 'requires_action' as const };
     }
     const onvo = window.ONVO(process.env.NEXT_PUBLIC_ONVO_PUBLISHABLE_KEY || '');
     const result = await onvo.handleNextAction({ paymentIntentId });
     if (result?.error) {
-      toast.error(result.error.message || '3DS Authentication failed');
+      toast.error(result.error.message || 'Falló la autenticación 3DS');
       return { status: 'requires_payment_method' as const };
     }
     return result.paymentIntent as { status: string };
@@ -161,7 +162,7 @@ export default function PaymentForm({ onSuccess }: { onSuccess?: (intentId: stri
           state: values.state,
         },
       });
-      if (clientRes.error || !clientRes.data?.id) throw new Error(clientRes.error || 'Error creating client');
+      if (clientRes.error || !clientRes.data?.id) throw new Error(clientRes.error || 'Error al crear el cliente');
 
       const pmRes = await createCardPaymentMethod({
         customerId: clientRes.data.id,
@@ -173,21 +174,21 @@ export default function PaymentForm({ onSuccess }: { onSuccess?: (intentId: stri
           holderName: values.name,
         },
       });
-      if (pmRes.error || !pmRes.data?.id) throw new Error(pmRes.error || 'Error with the payment method.');
+      if (pmRes.error || !pmRes.data?.id) throw new Error(pmRes.error || 'Error con el método de pago');
 
       const intentRes = await createFixedTenDollarIntent({
         customerId: clientRes.data.id,
         description: 'Luxury Reels Pack',
         metadata: { email: values.email },
       });
-      if (intentRes.error || !intentRes.data?.id) throw new Error(intentRes.error || 'Error with payment intent');
+      if (intentRes.error || !intentRes.data?.id) throw new Error(intentRes.error || 'Error con el intento de pago');
 
       const confirmRes = await confirmPaymentIntent({
         paymentIntentId: intentRes.data.id,
         paymentMethodId: pmRes.data.id,
         returnUrl: getReturnUrl(),
       });
-      if (confirmRes.error || !confirmRes.data) throw new Error(confirmRes.error || 'Error confirming');
+      if (confirmRes.error || !confirmRes.data) throw new Error(confirmRes.error || 'Error confirmando el pago');
 
       let status = confirmRes.data.status;
       if (status === 'requires_action') {
@@ -206,19 +207,19 @@ export default function PaymentForm({ onSuccess }: { onSuccess?: (intentId: stri
           value: 10,
           currency:'USD'
         });
-        toast.success('Payment done successfully. Sending email... Do not close the window');
+        toast.success('Pago realizado con éxito. Enviando correo electrónico... No cierres la ventana.');
         form.reset(defaultValues);
         onSuccess?.(intentRes.data.id);
         await sendNotificationEmail({to: values.email, subject: 'LUXURY VIDEOS', name: values.name, htmlContent:'', payment_intent_id: intentRes.data.id})
         window.location.href = '/clips/thank-you';
       } else if (status === 'requires_payment_method') {
-        toast.error('Payment was declined. Try another card.');
+        toast.error('El pago fue rechazado. Intenta con otra tarjeta.');
       } else {
-        toast.error(`The payment status is: ${status}`);
+        toast.error(`El estado del pago es: ${status}`);
       }
     } catch (err) {
       console.error(err);
-      toast.error((err as Error).message || 'Could not process payment');
+      toast.error((err as Error).message || 'No se pudo procesar el pago.');
     } finally {
       setLoading(false);
     }
@@ -227,10 +228,10 @@ export default function PaymentForm({ onSuccess }: { onSuccess?: (intentId: stri
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
       <div className="space-y-1">
-        <label className="text-sm text-white/80">Name</label>
+        <label className="text-sm text-white/80">Nombre</label>
         <Input
           {...form.register('name')}
-          placeholder="Name and Last name"
+          placeholder="Nombre y apellido"
           className="bg-white/5 border-white/10 text-white"
         />
         {form.formState.errors.name && <p className="text-red-400 text-xs">{form.formState.errors.name.message}</p>}
@@ -240,13 +241,13 @@ export default function PaymentForm({ onSuccess }: { onSuccess?: (intentId: stri
         <Input
           {...form.register('email')}
           type="email"
-          placeholder="your@email.com"
+          placeholder="tu@email.com"
           className="bg-white/5 border-white/10 text-white"
         />
         {form.formState.errors.email && <p className="text-red-400 text-xs">{form.formState.errors.email.message}</p>}
       </div>
       <div className="space-y-1">
-        <label className="text-sm text-white/80">Phone number</label>
+        <label className="text-sm text-white/80">Número de teléfono</label>
         <div className="bg-white/5 border border-white/10 rounded-lg px-2 py-1">
           <PhoneInput
             value={form.watch('phone')}
@@ -257,20 +258,21 @@ export default function PaymentForm({ onSuccess }: { onSuccess?: (intentId: stri
         {form.formState.errors.phone && <p className="text-red-400 text-xs">{form.formState.errors.phone.message}</p>}
       </div>
       <div className="grid grid-cols-1 gap-3">
+        <h1 className='text-sm'>Dirección de facturación</h1>
         <div className="space-y-1">
-          <label className="text-sm text-white/80">City</label>
+          <label className="text-sm text-white/80">Ciudad</label>
           <Input
             {...form.register('city')}
-            placeholder="City"
+            placeholder="Ciudad"
             className="bg-white/5 border-white/10 text-white"
           />
           {form.formState.errors.city && <p className="text-red-400 text-xs">{form.formState.errors.city.message}</p>}
         </div>
         <div className="space-y-1">
-          <label className="text-sm text-white/80">Country</label>
+          <label className="text-sm text-white/80">País</label>
           <Select value={form.watch('country')} onValueChange={(val) => form.setValue('country', val)}>
             <SelectTrigger className="w-full bg-white/5 border border-white/10 text-white px-3 py-2">
-              <SelectValue placeholder="Select country" />
+              <SelectValue placeholder="Selecciona un país" />
             </SelectTrigger>
             <SelectContent className="bg-[#0B0E16] border border-white/10 text-white">
               <SelectGroup>
@@ -287,7 +289,7 @@ export default function PaymentForm({ onSuccess }: { onSuccess?: (intentId: stri
           )}
         </div>
         <div className="space-y-1">
-          <label className="text-sm text-white/80">Postal Code</label>
+          <label className="text-sm text-white/80">Código postal</label>
           <Input
             {...form.register('postalCode')}
             placeholder="10101"
@@ -298,7 +300,7 @@ export default function PaymentForm({ onSuccess }: { onSuccess?: (intentId: stri
           )}
         </div>
         <div className="space-y-1">
-          <label className="text-sm text-white/80">State / Province</label>
+          <label className="text-sm text-white/80">Estado / provincia</label>
           <Input
             {...form.register('state')}
             placeholder="Puebla"
@@ -308,8 +310,9 @@ export default function PaymentForm({ onSuccess }: { onSuccess?: (intentId: stri
         </div>
       </div>
       <div className="grid grid-cols-1 gap-3">
+        <h1 className='text-md'>Datos de la tarjeta</h1>
         <div className="space-y-1">
-          <label className="text-sm text-white/80">Card number</label>
+          <label className="text-sm text-white/80">Número de tarjeta</label>
           <Input
             {...form.register('cardNumber')}
             placeholder="4242 4242 4242 4242"
@@ -320,42 +323,48 @@ export default function PaymentForm({ onSuccess }: { onSuccess?: (intentId: stri
             <p className="text-red-400 text-xs">{form.formState.errors.cardNumber.message}</p>
           )}
         </div>
-        <div className="flex gap-3">
-          <div className="space-y-1 flex-1">
-            <label className="text-sm text-white/80">Expiry Month(MM)</label>
-            <Input
-              {...form.register('expMonth')}
-              placeholder="08"
-              className="bg-white/5 border-white/10 text-white"
-              inputMode="numeric"
-            />
-            {form.formState.errors.expMonth && (
-              <p className="text-red-400 text-xs">{form.formState.errors.expMonth.message}</p>
-            )}
+        <div className="flex flex-col gap-2">
+          <h1 className='text-sm'>Mes y año de expiración</h1>
+          <div className='flex flex-row justify-between gap-4'>
+            <div className="space-y-1 flex-1">
+              <label className="text-sm text-white/80">Mes(MM)</label>
+              <Input
+                {...form.register('expMonth')}
+                placeholder="08"
+                className="bg-white/5 border-white/10 text-white"
+                inputMode="numeric"
+              />
+              {form.formState.errors.expMonth && (
+                <p className="text-red-400 text-xs">{form.formState.errors.expMonth.message}</p>
+              )}
+            </div>
+            <div className="space-y-1 flex-1">
+              <label className="text-sm text-white/80">Año(YYYY)</label>
+              <Input
+                {...form.register('expYear')}
+                placeholder="2027"
+                className="bg-white/5 border-white/10 text-white"
+                inputMode="numeric"
+              />
+              {form.formState.errors.expYear && (
+                <p className="text-red-400 text-xs">{form.formState.errors.expYear.message}</p>
+              )}
+            </div>
           </div>
-          <div className="space-y-1 flex-1">
-            <label className="text-sm text-white/80">Expiry Year(YYYY)</label>
-            <Input
-              {...form.register('expYear')}
-              placeholder="2027"
-              className="bg-white/5 border-white/10 text-white"
-              inputMode="numeric"
-            />
-            {form.formState.errors.expYear && (
-              <p className="text-red-400 text-xs">{form.formState.errors.expYear.message}</p>
-            )}
-          </div>
-          <div className="space-y-1 flex-1">
-            <label className="text-sm text-white/80">cvv</label>
-            <Input
-              {...form.register('cvv')}
-              placeholder="123"
-              className="bg-white/5 border-white/10 text-white"
-              inputMode="numeric"
-            />
-            {form.formState.errors.cvv && (
-              <p className="text-red-400 text-xs">{form.formState.errors.cvv.message}</p>
-            )}
+          <h1 className='text-sm'>Código de seguridad</h1>
+          <div>
+            <div className="space-y-1 flex-1">
+              <label className="text-sm text-white/80">cvv</label>
+              <Input
+                {...form.register('cvv')}
+                placeholder="123"
+                className="bg-white/5 border-white/10 text-white"
+                inputMode="numeric"
+              />
+              {form.formState.errors.cvv && (
+                <p className="text-red-400 text-xs">{form.formState.errors.cvv.message}</p>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -368,7 +377,7 @@ export default function PaymentForm({ onSuccess }: { onSuccess?: (intentId: stri
       </div>
 
       <Button type="submit" className="w-full bg-gradient-to-r from-[#F97316] via-[#EC4899] to-[#6366F1]" disabled={loading}>
-        {loading ? 'Processing...' : 'Pay and gain access'}
+        {loading ? 'Procesando...' : 'Pagar y obtener acceso'}
       </Button>
     </form>
   );

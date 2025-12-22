@@ -11,7 +11,7 @@ interface PaymentFormDrawerProps {
   children: ReactNode;
 }
 
-export default function PaymentFormDrawer({ open, onClose, title = 'Finish your access', children }: PaymentFormDrawerProps) {
+export default function PaymentFormDrawer({ open, onClose, title = 'Completa tu acceso', children }: PaymentFormDrawerProps) {
   useEffect(() => {
     if (!open) return;
     const handler = (e: KeyboardEvent) => {
@@ -37,7 +37,7 @@ export default function PaymentFormDrawer({ open, onClose, title = 'Finish your 
         <div className="bg-[#0B0E16] text-white rounded-t-3xl px-4 pt-6 pb-8 shadow-2xl max-h-[92vh] overflow-y-auto border border-[#111827]">
           <div className="flex items-center justify-between mb-4">
             <div className="space-y-1">
-              <p className="text-xs uppercase tracking-[0.3em] text-[#FACC15]">SECURE PAYMENT WITH <a href='https://onvopay.com' className='underline text-blue-600'>ONVO PAY</a></p>
+              <p className="text-xs uppercase tracking-[0.3em] text-[#FACC15]">PAGO SEGURO CON <a href='https://onvopay.com' className='underline text-blue-600'>ONVO PAY</a></p>
               <h3 className="text-lg font-semibold">{title}</h3>
             </div>
             <button
