@@ -25,7 +25,7 @@ export default function ClipsPage() {
     <main className="min-h-screen bg-[#02040A] text-white pb-32">
       <div className="max-w-xl mx-auto px-4 py-6 space-y-6">
         <ClipsHero onCtaClick={openForm} />
-        <ClipsVideo onCtaClick={openForm} />
+        {/* <ClipsVideo onCtaClick={openForm} /> */}
         <ClipsPricing onCtaClick={openForm} />
         <ClipsAudience onCtaClick={openForm} />
         <ClipsBenefits onCtaClick={openForm} />
