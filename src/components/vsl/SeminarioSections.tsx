@@ -40,7 +40,7 @@ export function SeminarHero({ onCtaClick, cta = true }: SectionProps) {
   return (
     <SectionWrapper tone="night">
       <p className="text-xs uppercase tracking-[0.4em] text-[#F97316] mb-3">salud integral</p>
-      <h1 className="text-3xl font-semibold leading-tight mb-4">SEMINARIO SALUD INTEGRAL</h1>
+      <h1 className="text-3xl font-semibold leading-tight mb-4">SEMINARIO SALUD PARA TODOS ONLINE</h1>
       <p className="text-base text-white/80 leading-relaxed mb-6">
         Un viaje íntimo para recordar que tu cuerpo, tu mente y tu espíritu fueron creados para vivir en armonía.
       </p>
@@ -54,9 +54,9 @@ export function SeminarHero({ onCtaClick, cta = true }: SectionProps) {
 export function OpeningSection({ onCtaClick, cta = true }: SectionProps) {
   return (
     <SectionWrapper>
-      <SectionHeading title="Este seminario abre la Maratón de la Salud Integral" />
+      <SectionHeading title="Aquí no recibirás tips sueltos" />
       <p className="text-sm leading-relaxed">
-        Del 15 al 21 de diciembre | Online | 100% Gratis. Organizado por Aformativo University.
+        El 29 de diciembre | Online | 100% Gratis. Organizado por Aformativo University.
       </p>
       {cta && (
         <CTAButton onClick={onCtaClick} className="mt-6" />
@@ -98,7 +98,7 @@ export function SacredSpaceSection({ onCtaClick, cta = true }: SectionProps) {
       <div className="space-y-3 text-sm leading-relaxed">
         <p>No es una clase de salud como las que ya conocés.</p>
         <p>
-          Una semana para conocer de salud de la persona: cuerpo sano, tu mente en paz y tu espíritu libre y sobre todo
+          Regalate un espacio para conocer de salud de la persona: cuerpo sano, tu mente en paz y tu espíritu libre y sobre todo
           que lo vivas con tu cuerpo saludable y con energía.
         </p>
         <p className="italic font-semibold">💬 "Está bien que no lo supieras porque te faltaba el mapa correcto."</p>
@@ -113,7 +113,7 @@ export function SacredSpaceSection({ onCtaClick, cta = true }: SectionProps) {
 export function ExperienceSection({ onCtaClick, cta = true }: SectionProps) {
   return (
     <SectionWrapper>
-      <SectionHeading eyebrow="🔥 ¿Qué vas a vivir?" title="Durante 7 días te acompañamos paso a paso" />
+      <SectionHeading eyebrow="🔥 ¿Qué vas a vivir?" title="Seminario desde 0 hasta salud total. Te acompañamos paso a paso" />
       <div className="space-y-3 text-sm leading-relaxed">
         <p>
           Te vamos a guiar para que entiendas por qué no te sentís al 100%, aunque “comas bien” “hagas ejercicio” y
@@ -121,7 +121,7 @@ export function ExperienceSection({ onCtaClick, cta = true }: SectionProps) {
         </p>
         <p>Y lo más importante: vas a descubrir cómo volver a tu equilibrio natural.</p>
         <p>
-          Este maratón no es información, es Aformación. Y está diseñado para que pases de sentirte "más o menos bien"
+          Este seminario no es información, es Aformación. Y está diseñado para que pases de sentirte "más o menos bien"
           o de “creer que estas bien de salud” a sentirte pleno, fuerte y lleno de energía.
         </p>
       </div>
@@ -142,8 +142,8 @@ export function MethodSection({ onCtaClick, cta = true }: SectionProps) {
           Desde la alimentación y el sueño, hasta el propósito, la espiritualidad, tu sexualidad y tu poder interior.
         </p>
         <p>
-          En el SEMINARIO vas a tener toda la información, pero si sigues hasta el final de la semana, vivirás la
-          transformación hasta salud total. Cada día vas a recibir herramientas prácticas, sabiduría y principios
+          En el SEMINARIO vas a tener toda la información, vivirás la
+          transformación hasta salud total. Cada momento vas a recibir herramientas prácticas, sabiduría y principios
           eternos para sanar, ordenar y fortalecer tu vida, alejado de las enfermedades.
         </p>
         <p>Esto no lo enseñan ni en la escuela, ni en la medicina tradicional, por eso es que no tenemos a quien preguntarle de salud.</p>
@@ -160,7 +160,7 @@ export function DetailsSection({ onCtaClick, cta = true }: SectionProps) {
     <SectionWrapper>
       <SectionHeading eyebrow="📅 ¿Cuándo y cómo?" title="Los detalles logísticos" />
       <ul className="text-sm leading-relaxed space-y-2">
-        <li>🗓️ Del 15 al 21 de diciembre</li>
+        <li>🗓️ El 29 de diciembre 7pm hora de Costa Rica</li>
         <li>📍 100% Online por Zoom</li>
         <li>💰 Totalmente Gratis (pero lo que recibes vale oro)</li>
         <li>*Auspiciado por Aformativo University</li>
