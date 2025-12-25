@@ -47,12 +47,12 @@ export function ClipsPricing({ onCtaClick }: SectionProps) {
   return (
     <section className={`${sectionBase} text-center space-y-3`}>
       <p className="text-xs uppercase tracking-[0.3em] text-[#FACC15]">Oferta por tiempo limitado</p>
-      <h2 className="text-2xl font-semibold">Obtén la galería completa por sólo $10</h2>
+      <h2 className="text-2xl font-semibold">Obtén la galería completa por sólo $40</h2>
       <p className="text-sm text-white/70">
-        Precio regular <span className="line-through">$40</span> — Sólo por diciembre <span className="font-semibold">$10</span> (75% off)
+        Precio regular <span className="line-through">$160</span> — Sólo por este fin de año <span className="font-semibold">$40</span> (75% off)
       </p>
       <div className="flex items-center justify-center gap-3">
-        <span className="text-3xl font-semibold text-white">$10</span>
+        <span className="text-3xl font-semibold text-white">$40</span>
         <span className="text-xs uppercase tracking-[0.2em] text-white/60 bg-white/10 px-3 py-1 rounded-full">una vez</span>
       </div>
       <CTAButton onClick={onCtaClick} variant="gradient" label='OBTENER ACCESO'/>

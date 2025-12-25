@@ -19,7 +19,7 @@ import { toast } from 'sonner';
 import {
   confirmPaymentIntent,
   createCardPaymentMethod,
-  createFixedTenDollarIntent,
+  createFixedIntent,
   createOnvoClient,
   getPaymentIntent,
   sendNotificationEmail,
@@ -176,7 +176,7 @@ export default function PaymentForm({ onSuccess }: { onSuccess?: (intentId: stri
       });
       if (pmRes.error || !pmRes.data?.id) throw new Error(pmRes.error || 'Error con el método de pago');
 
-      const intentRes = await createFixedTenDollarIntent({
+      const intentRes = await createFixedIntent({
         customerId: clientRes.data.id,
         description: 'Luxury Reels Pack',
         metadata: { email: values.email },
@@ -204,7 +204,7 @@ export default function PaymentForm({ onSuccess }: { onSuccess?: (intentId: stri
       if (status === 'succeeded') {
         const ReactPixel = (await import("react-facebook-pixel")).default;
         ReactPixel.track("Purchase", {
-          value: 10,
+          value: 40,
           currency:'USD'
         });
         toast.success('Pago realizado con éxito. Enviando correo electrónico... No cierres la ventana.');

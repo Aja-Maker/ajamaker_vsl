@@ -139,7 +139,7 @@ export async function createPaymentIntent(input: CreatePaymentIntentInput) {
 }
 
 // Fixed $10 payment intent (server-enforced amount)
-export async function createFixedTenDollarIntent({
+export async function createFixedIntent({
   customerId,
   description,
   metadata,
@@ -152,7 +152,7 @@ export async function createFixedTenDollarIntent({
     method: 'POST',
     auth: 'secret',
     body: {
-      amount: 1000, // $10.00 USD
+      amount: 4000, // $10.00 USD
       currency: 'USD',
       customerId,
       description,
