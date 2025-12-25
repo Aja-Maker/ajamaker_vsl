@@ -45,7 +45,7 @@ const paymentSchema = z.object({
 
 type PaymentFormValues = z.infer<typeof paymentSchema>;
 
-const PRODUCT_PRICE = 1000; // cents USD (server-enforced)
+const PRODUCT_PRICE = 4000; // cents USD (server-enforced)
 
 const countries = [
   { value: 'CR', label: 'Costa Rica' },
