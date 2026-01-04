@@ -15,6 +15,9 @@ interface WrapperProps {
   children: ReactNode;
 }
 
+const DATE = 'Domingo 11 de enero'
+const TIME = '2pm hora de Costa Rica'
+
 function SectionWrapper({ tone = 'light', children }: WrapperProps) {
   const tones: Record<Tone, string> = {
     light: 'bg-white text-[#0F172A] border border-[#E2E8F0]',
@@ -56,7 +59,7 @@ export function OpeningSection({ onCtaClick, cta = true }: SectionProps) {
     <SectionWrapper>
       <SectionHeading title="Aquí no recibirás tips sueltos" />
       <p className="text-sm leading-relaxed">
-        El 29 de diciembre | Online | 100% Gratis. Organizado por Aformativo University.
+        El {DATE} | Online | 100% Gratis. Organizado por Aformativo University.
       </p>
       {cta && (
         <CTAButton onClick={onCtaClick} className="mt-6" />
@@ -94,7 +97,7 @@ export function SeminarVideoSection({ onCtaClick, cta = true }: SectionProps) {
 export function SacredSpaceSection({ onCtaClick, cta = true }: SectionProps) {
   return (
     <SectionWrapper tone="accent">
-      <SectionHeading eyebrow="✨ Bienvenido a este espacio sagrado…" title="No es una charla más." />
+      <SectionHeading eyebrow="✨ Bienvenido a este espacio sagrado..." title="No es una charla más." />
       <div className="space-y-3 text-sm leading-relaxed">
         <p>No es una clase de salud como las que ya conocés.</p>
         <p>
@@ -160,7 +163,7 @@ export function DetailsSection({ onCtaClick, cta = true }: SectionProps) {
     <SectionWrapper>
       <SectionHeading eyebrow="📅 ¿Cuándo y cómo?" title="Los detalles logísticos" />
       <ul className="text-sm leading-relaxed space-y-2">
-        <li>🗓️ El 29 de diciembre 7pm hora de Costa Rica</li>
+        <li>🗓️ El {DATE} a las {TIME}</li>
         <li>📍 100% Online por Zoom</li>
         <li>💰 Totalmente Gratis (pero lo que recibes vale oro)</li>
         <li>*Auspiciado por Aformativo University</li>
