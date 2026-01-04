@@ -8,6 +8,8 @@ import { countryOptions } from '@/components/vsl/InfoForm';
 import PhoneField from '@/components/PhoneField';
 import { submitLead } from '@/app/seminario/actions';
 
+const REDIRECT_WHATSAPP_LINK = 'https://chat.whatsapp.com/Fb2NCy5lkZQJRznDDNAZQH'
+
 export default function RightForm() {
   const [prefix, setPrefix] = useState('+506');
   const [snackbar, setSnackbar] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
@@ -42,7 +44,7 @@ export default function RightForm() {
         value: 30,
         currency:'USD'
       });
-      window.location.href = 'https://chat.whatsapp.com/Gpqv7rxMXZmAzr7R9xnjjb'
+      window.location.href = REDIRECT_WHATSAPP_LINK;
     }
 
     setTimeout(() => setSnackbar(null), 5000); // Hide after 5s
