@@ -8,7 +8,7 @@ import { countryOptions } from '@/components/vsl/InfoForm';
 import PhoneField from '@/components/PhoneField';
 import { submitLead } from '@/app/seminario/actions';
 
-const REDIRECT_WHATSAPP_LINK = 'https://chat.whatsapp.com/Fb2NCy5lkZQJRznDDNAZQH'
+const REDIRECT_WHATSAPP_LINK = 'https://chat.whatsapp.com/C7PVMr13hSj2cPGHNjcxrO'
 
 export default function RightForm() {
   const [prefix, setPrefix] = useState('+506');
