@@ -15,8 +15,8 @@ interface WrapperProps {
   children: ReactNode;
 }
 
-const DATE = 'Sábado 17 de enero'
-const TIME = '10:30am hora de Costa Rica'
+const DATE = 'Miércoles 21 de enero'
+const TIME = '7pm hora de Costa Rica'
 
 function SectionWrapper({ tone = 'light', children }: WrapperProps) {
   const tones: Record<Tone, string> = {
