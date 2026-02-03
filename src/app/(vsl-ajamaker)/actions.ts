@@ -17,7 +17,7 @@ export async function addBrevoContact({ name, email, whatsapp, question }: AddBr
       headers: {
         'accept': 'application/json',
         'content-type': 'application/json',
-        'api-key':  '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', // Must be set in .env
+        'api-key': process.env.BREVO_API_KEY!, // Must be set in .env
       },
       body: JSON.stringify({
         email,
