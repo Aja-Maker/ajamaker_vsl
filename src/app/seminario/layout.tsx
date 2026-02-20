@@ -12,8 +12,8 @@ const poppins = Poppins({
 })
 
 export const metadata: Metadata = {
-  title: "SEMINARIO SALUD INTEGRAL",
-  description: "Una semana para conocer de salud de la persona: cuerpo sano, tu mente en paz y tu espíritu libre y sobre todo",
+  title: "SEMINARIO LA SALUD SE CONSTRUYE EN CASA",
+  description: "Descubre cómo transformar tu hogar en un espacio de bienestar integral. Únete a nuestro seminario y aprende a crear un ambiente saludable para ti y tu familia.",
   icons: {
     icon: "/icons/aform_cube.svg",
   },
