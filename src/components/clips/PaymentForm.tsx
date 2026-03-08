@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '@/components/ui/input';
@@ -40,7 +40,7 @@ const paymentSchema = z.object({
   expDate: z
     .string()
     .trim()
-    .regex(/^(0[1-9]|1[0-2])\s*\/\s*(\d{2}|\d{4})$/, 'Formato inválido (MM / AA)'),
+    .regex(/^(0[1-9]|1[0-2])\s*\/\s*\d{2}$/, 'Formato inválido (MM / AA)'),
   cvv: z.string().min(3, 'CVC inválido').trim(),
 });
 
@@ -72,6 +72,25 @@ declare global {
 
 export default function PaymentForm({ onSuccess }: { onSuccess?: (intentId: string) => void }) {
   const [loading, setLoading] = useState(false);
+
+  const formatExpDate = (value: string) => {
+    const digits = value.replace(/\D/g, '').slice(0, 4);
+    if (digits.length === 0) return '';
+    if (digits.length <= 2) return `${digits} / `;
+    return `${digits.slice(0, 2)} / ${digits.slice(2)}`;
+  };
+
+  const parseExpDate = (value: string) => {
+    const [expMonthRaw, expYearRaw] = value.split('/').map((v) => v.trim());
+    const expMonth = Number(expMonthRaw);
+    const expYear = Number(`20${expYearRaw}`);
+
+    if (!Number.isInteger(expMonth) || expMonth < 1 || expMonth > 12 || expYearRaw.length !== 2) {
+      throw new Error('Fecha de expiración inválida.');
+    }
+
+    return { expMonth, expYear };
+  };
 
   const loadOnvoSdk = async () => {
     if (typeof window === 'undefined') return false;
@@ -153,14 +172,12 @@ export default function PaymentForm({ onSuccess }: { onSuccess?: (intentId: stri
     setLoading(true);
     toast.dismiss();
     try {
-      const [expMonthRaw, expYearRaw] = values.expDate.split('/').map((v) => v.trim());
-      const expMonth = Number(expMonthRaw);
-      const expYear = Number(expYearRaw.length === 2 ? `20${expYearRaw}` : expYearRaw);
+      const { expMonth, expYear } = parseExpDate(values.expDate);
 
       const clientRes = await createOnvoClient({
         name: values.name,
         email: values.email,
-        phone: values.phone || '+10000000000',
+        phone: values.phone || '+12025550142',
         address: {
           city: values.city || 'N/A',
           country: values.country,
@@ -290,11 +307,21 @@ export default function PaymentForm({ onSuccess }: { onSuccess?: (intentId: stri
           />
           <div className="grid grid-cols-2">
             <div className="border-r border-[#e4e4e7]">
-              <Input
-                {...form.register('expDate')}
-                placeholder="MM / AA"
-                className="h-11 rounded-none border-0 bg-transparent shadow-none focus-visible:ring-0"
-                inputMode="numeric"
+              <Controller
+                control={form.control}
+                name="expDate"
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    placeholder="MM / AA"
+                    className="h-11 rounded-none border-0 bg-transparent shadow-none focus-visible:ring-0"
+                    inputMode="numeric"
+                    maxLength={7}
+                    onChange={(e) =>
+                      field.onChange(formatExpDate(e.target.value))
+                    }
+                  />
+                )}
               />
             </div>
             <div>
