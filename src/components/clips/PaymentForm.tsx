@@ -1,12 +1,11 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { PhoneInput } from '@/components/phone-input';
 import {
   Select,
   SelectContent,
@@ -24,23 +23,25 @@ import {
   getPaymentIntent,
   sendNotificationEmail,
 } from '@/app/clips/actions';
-import { Separator } from '@radix-ui/react-select';
 
 const paymentSchema = z.object({
   name: z.string().min(2, 'Nombre requerido').trim(),
   email: z.string().email('Correo inválido').trim(),
-  phone: z.string().min(6, 'Teléfono inválido'),
-  city: z.string().min(2, 'Ciudad requerida').trim(),
   country: z.string().min(2, 'País requerido').trim(),
-  postalCode: z.string().min(2, 'Código postal requerido').trim(),
-  state: z.string().min(2, 'Provincia/Estado requerido').trim(),
+  address: z.string().min(4, 'Dirección requerida').trim(),
+  phone: z.string().optional().default(''),
+  city: z.string().optional().default(''),
+  postalCode: z.string().optional().default(''),
+  state: z.string().optional().default(''),
   cardNumber: z
     .string()
     .min(12, 'Tarjeta inválida')
     .transform((v) => v.replace(/\s+/g, '')),
-  expMonth: z.string().min(1, 'Mes requerido').trim(),
-  expYear: z.string().min(2, 'Año requerido').trim(),
-  cvv: z.string().min(3, 'cvv inválido').trim(),
+  expDate: z
+    .string()
+    .trim()
+    .regex(/^(0[1-9]|1[0-2])\s*\/\s*(\d{2}|\d{4})$/, 'Formato inválido (MM / AA)'),
+  cvv: z.string().min(3, 'CVC inválido').trim(),
 });
 
 type PaymentFormValues = z.infer<typeof paymentSchema>;
@@ -48,6 +49,7 @@ type PaymentFormValues = z.infer<typeof paymentSchema>;
 const PRODUCT_PRICE = 4000; // cents USD (server-enforced)
 
 const countries = [
+  { value: 'US', label: 'Estados Unidos' },
   { value: 'CR', label: 'Costa Rica' },
   { value: 'MX', label: 'México' },
   { value: 'CO', label: 'Colombia' },
@@ -56,7 +58,7 @@ const countries = [
   { value: 'PE', label: 'Perú' },
   { value: 'PA', label: 'Panama' },
   { value: 'ES', label: 'España' },
-  { value: 'GB', label: 'United Kingdom' },
+  { value: 'GB', label: 'Reino Unido' },
   { value: 'PR', label: 'Puerto Rico' },
   { value: 'DO', label: 'República Dominicana' },
   { value: 'JM', label: 'Jamaica' },
@@ -102,14 +104,14 @@ export default function PaymentForm({ onSuccess }: { onSuccess?: (intentId: stri
     () => ({
       name: '',
       email: '',
+      country: 'US',
+      address: '',
       phone: '',
       city: '',
-      country: 'CR',
       postalCode: '',
       state: '',
       cardNumber: '',
-      expMonth: '',
-      expYear: '',
+      expDate: '',
       cvv: '',
     }),
     []
@@ -151,15 +153,19 @@ export default function PaymentForm({ onSuccess }: { onSuccess?: (intentId: stri
     setLoading(true);
     toast.dismiss();
     try {
+      const [expMonthRaw, expYearRaw] = values.expDate.split('/').map((v) => v.trim());
+      const expMonth = Number(expMonthRaw);
+      const expYear = Number(expYearRaw.length === 2 ? `20${expYearRaw}` : expYearRaw);
+
       const clientRes = await createOnvoClient({
         name: values.name,
         email: values.email,
-        phone: values.phone,
+        phone: values.phone || '+10000000000',
         address: {
-          city: values.city,
+          city: values.city || 'N/A',
           country: values.country,
-          postalCode: values.postalCode,
-          state: values.state,
+          postalCode: values.postalCode || '00000',
+          state: values.state || 'N/A',
         },
       });
       if (clientRes.error || !clientRes.data?.id) throw new Error(clientRes.error || 'Error al crear el cliente');
@@ -168,8 +174,8 @@ export default function PaymentForm({ onSuccess }: { onSuccess?: (intentId: stri
         customerId: clientRes.data.id,
         card: {
           number: values.cardNumber,
-          expMonth: Number(values.expMonth),
-          expYear: Number(values.expYear),
+          expMonth,
+          expYear,
           cvv: values.cvv,
           holderName: values.name,
         },
@@ -226,55 +232,33 @@ export default function PaymentForm({ onSuccess }: { onSuccess?: (intentId: stri
   };
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-      <div className="space-y-1">
-        <label className="text-sm text-white/80">Nombre</label>
-        <Input
-          {...form.register('name')}
-          placeholder="Nombre y apellido"
-          className="bg-white/5 border-white/10 text-white"
-        />
-        {form.formState.errors.name && <p className="text-red-400 text-xs">{form.formState.errors.name.message}</p>}
-      </div>
-      <div className="space-y-1">
-        <label className="text-sm text-white/80">Email</label>
-        <Input
-          {...form.register('email')}
-          type="email"
-          placeholder="tu@email.com"
-          className="bg-white/5 border-white/10 text-white"
-        />
-        {form.formState.errors.email && <p className="text-red-400 text-xs">{form.formState.errors.email.message}</p>}
-      </div>
-      <div className="space-y-1">
-        <label className="text-sm text-white/80">Número de teléfono</label>
-        <div className="bg-white/5 border border-white/10 rounded-lg px-2 py-1">
-          <PhoneInput
-            value={form.watch('phone')}
-            onChange={(val) => form.setValue('phone', (val as string) || '')}
-            defaultCountry="MX"
-          />
-        </div>
-        {form.formState.errors.phone && <p className="text-red-400 text-xs">{form.formState.errors.phone.message}</p>}
-      </div>
-      <div className="grid grid-cols-1 gap-3">
-        <h1 className='text-sm'>Dirección de facturación</h1>
+    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5 rounded-2xl bg-[#f5f5f5] p-4 text-[#3f3f46]">
+      <div className="space-y-3">
         <div className="space-y-1">
-          <label className="text-sm text-white/80">Ciudad</label>
+          <label className="text-sm font-medium text-[#52525b]">Correo electrónico</label>
           <Input
-            {...form.register('city')}
-            placeholder="Ciudad"
-            className="bg-white/5 border-white/10 text-white"
+            {...form.register('email')}
+            type="email"
+            placeholder="tu@email.com"
+            className="h-11 border-[#d4d4d8] bg-white text-[#18181b]"
           />
-          {form.formState.errors.city && <p className="text-red-400 text-xs">{form.formState.errors.city.message}</p>}
+          {form.formState.errors.email && <p className="text-xs text-red-500">{form.formState.errors.email.message}</p>}
         </div>
-        <div className="space-y-1">
-          <label className="text-sm text-white/80">País</label>
-          <Select value={form.watch('country')} onValueChange={(val) => form.setValue('country', val)}>
-            <SelectTrigger className="w-full bg-white/5 border border-white/10 text-white px-3 py-2">
+      </div>
+
+      <div className="space-y-2">
+        <h2 className="text-lg font-semibold text-[#3f3f46]">Dirección de envío</h2>
+        <div className="overflow-hidden rounded-xl border border-[#d4d4d8] bg-white">
+          <Input
+            {...form.register('name')}
+            placeholder="Nombre"
+            className="h-11 rounded-none border-0 border-b border-[#e4e4e7] bg-transparent shadow-none focus-visible:ring-0"
+          />
+          <Select value={form.watch('country')} onValueChange={(val) => form.setValue('country', val, { shouldValidate: true })}>
+            <SelectTrigger className="h-11 w-full rounded-none border-0 border-b border-[#e4e4e7] bg-transparent px-3 text-left text-[#3f3f46] shadow-none focus:ring-0">
               <SelectValue placeholder="Selecciona un país" />
             </SelectTrigger>
-            <SelectContent className="bg-[#0B0E16] border border-white/10 text-white">
+            <SelectContent className="bg-white text-[#18181b]">
               <SelectGroup>
                 {countries.map((c) => (
                   <SelectItem key={c.value} value={c.value}>
@@ -284,99 +268,58 @@ export default function PaymentForm({ onSuccess }: { onSuccess?: (intentId: stri
               </SelectGroup>
             </SelectContent>
           </Select>
-          {form.formState.errors.country && (
-            <p className="text-red-400 text-xs">{form.formState.errors.country.message}</p>
-          )}
-        </div>
-        <div className="space-y-1">
-          <label className="text-sm text-white/80">Código postal</label>
           <Input
-            {...form.register('postalCode')}
-            placeholder="10101"
-            className="bg-white/5 border-white/10 text-white"
+            {...form.register('address')}
+            placeholder="Dirección"
+            className="h-11 rounded-none border-0 bg-transparent shadow-none focus-visible:ring-0"
           />
-          {form.formState.errors.postalCode && (
-            <p className="text-red-400 text-xs">{form.formState.errors.postalCode.message}</p>
-          )}
         </div>
-        <div className="space-y-1">
-          <label className="text-sm text-white/80">Estado / provincia</label>
-          <Input
-            {...form.register('state')}
-            placeholder="Puebla"
-            className="bg-white/5 border-white/10 text-white"
-          />
-          {form.formState.errors.state && <p className="text-red-400 text-xs">{form.formState.errors.state.message}</p>}
-        </div>
+        {form.formState.errors.name && <p className="text-xs text-red-500">{form.formState.errors.name.message}</p>}
+        {form.formState.errors.country && <p className="text-xs text-red-500">{form.formState.errors.country.message}</p>}
+        {form.formState.errors.address && <p className="text-xs text-red-500">{form.formState.errors.address.message}</p>}
       </div>
-      <div className="grid grid-cols-1 gap-3">
-        <h1 className='text-md'>Datos de la tarjeta</h1>
-        <div className="space-y-1">
-          <label className="text-sm text-white/80">Número de tarjeta</label>
+
+      <div className="space-y-2">
+        <h2 className="text-lg font-semibold text-[#3f3f46]">Detalles de pago</h2>
+        <div className="overflow-hidden rounded-xl border border-[#d4d4d8] bg-white">
           <Input
             {...form.register('cardNumber')}
             placeholder="4242 4242 4242 4242"
-            className="bg-white/5 border-white/10 text-white"
+            className="h-11 rounded-none border-0 border-b border-[#e4e4e7] bg-transparent shadow-none focus-visible:ring-0"
             inputMode="numeric"
           />
-          {form.formState.errors.cardNumber && (
-            <p className="text-red-400 text-xs">{form.formState.errors.cardNumber.message}</p>
-          )}
-        </div>
-        <div className="flex flex-col gap-2">
-          <h1 className='text-sm'>Mes y año de expiración</h1>
-          <div className='flex flex-row justify-between gap-4'>
-            <div className="space-y-1 flex-1">
-              <label className="text-sm text-white/80">Mes(MM)</label>
+          <div className="grid grid-cols-2">
+            <div className="border-r border-[#e4e4e7]">
               <Input
-                {...form.register('expMonth')}
-                placeholder="08"
-                className="bg-white/5 border-white/10 text-white"
+                {...form.register('expDate')}
+                placeholder="MM / AA"
+                className="h-11 rounded-none border-0 bg-transparent shadow-none focus-visible:ring-0"
                 inputMode="numeric"
               />
-              {form.formState.errors.expMonth && (
-                <p className="text-red-400 text-xs">{form.formState.errors.expMonth.message}</p>
-              )}
             </div>
-            <div className="space-y-1 flex-1">
-              <label className="text-sm text-white/80">Año(YYYY)</label>
-              <Input
-                {...form.register('expYear')}
-                placeholder="2027"
-                className="bg-white/5 border-white/10 text-white"
-                inputMode="numeric"
-              />
-              {form.formState.errors.expYear && (
-                <p className="text-red-400 text-xs">{form.formState.errors.expYear.message}</p>
-              )}
-            </div>
-          </div>
-          <h1 className='text-sm'>Código de seguridad</h1>
-          <div>
-            <div className="space-y-1 flex-1">
-              <label className="text-sm text-white/80">cvv</label>
+            <div>
               <Input
                 {...form.register('cvv')}
-                placeholder="123"
-                className="bg-white/5 border-white/10 text-white"
+                placeholder="CVC"
+                className="h-11 rounded-none border-0 bg-transparent shadow-none focus-visible:ring-0"
                 inputMode="numeric"
               />
-              {form.formState.errors.cvv && (
-                <p className="text-red-400 text-xs">{form.formState.errors.cvv.message}</p>
-              )}
             </div>
           </div>
         </div>
+        {form.formState.errors.cardNumber && <p className="text-xs text-red-500">{form.formState.errors.cardNumber.message}</p>}
+        {form.formState.errors.expDate && <p className="text-xs text-red-500">{form.formState.errors.expDate.message}</p>}
+        {form.formState.errors.cvv && <p className="text-xs text-red-500">{form.formState.errors.cvv.message}</p>}
       </div>
 
-      <div className="flex items-center justify-between bg-white/5 border border-white/10 rounded-xl px-3 py-2">
+      <div className="flex items-center justify-between rounded-xl border border-[#d4d4d8] bg-white px-3 py-2">
         <div>
-          <p className="text-xs uppercase tracking-wide text-white/60">Total</p>
-          <p className="text-lg font-semibold">${(PRODUCT_PRICE / 100).toFixed(2)} USD</p>
+          <p className="text-xs uppercase tracking-wide text-[#71717a]">Total</p>
+          <p className="text-lg font-semibold text-[#18181b]">${(PRODUCT_PRICE / 100).toFixed(2)} USD</p>
         </div>
       </div>
 
-      <Button type="submit" className="w-full bg-gradient-to-r from-[#F97316] via-[#EC4899] to-[#6366F1]" disabled={loading}>
+      <Button type="submit" className="h-11 w-full bg-[#18181b] text-white hover:bg-black" disabled={loading}>
         {loading ? 'Procesando...' : 'Pagar y obtener acceso'}
       </Button>
     </form>
