@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Poppins } from 'next/font/google'
 import "../globals.css";
 import { Toaster } from "@/components/ui/sonner";
-import ClientMetaPixelLuxury from "@/components/clips/ClientMetaPixelLuxury";
 
 const poppins = Poppins({
   weight: ['400', '500', '600', '700'],
@@ -59,7 +58,6 @@ export default function RootLayout({
         {/* End Meta Pixel Code */}
       </head>
       <body className={`${poppins.variable} font-sans antialiased`}>
-        <ClientMetaPixelLuxury/>
         {children}
         <Toaster position="bottom-center" richColors/>
       </body>
