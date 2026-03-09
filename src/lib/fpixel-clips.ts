@@ -38,8 +38,7 @@ const getDefaultContents = (value: number) => [
 
 const canTrack = () =>
   typeof window !== 'undefined' &&
-  typeof window.fbq === 'function' &&
-  !!window.__META_PIXEL_READY;
+  typeof window.fbq === 'function';
 
 const generateEventId = () => {
   if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
@@ -58,16 +57,8 @@ const normalizePhone = (phone?: string) => {
   return normalized || undefined;
 };
 
-const getPixelId = () => {
-  if (typeof window === 'undefined') return undefined;
-  const pixelId = (window.__META_PIXEL_ID || '').replace(/\D/g, '');
-  return pixelId || undefined;
-};
-
 const updateAdvancedMatching = (userData?: UserDataParams) => {
   if (!canTrack()) return;
-  const pixelId = getPixelId();
-  if (!pixelId) return;
 
   const email = normalizeEmail(userData?.email);
   const phone = normalizePhone(userData?.phone);
@@ -81,7 +72,7 @@ const updateAdvancedMatching = (userData?: UserDataParams) => {
   if (signature === lastAdvancedMatchingSignature) return;
 
   try {
-    window.fbq?.('set', 'userData', payload, pixelId);
+    window.fbq?.('set', 'userData', payload);
     lastAdvancedMatchingSignature = signature;
   } catch {
     // Best effort only
@@ -98,12 +89,12 @@ const track = (
   updateAdvancedMatching(userData);
   const eventId = generateEventId();
 
-  if (payload) {
+  if (payload && Object.keys(payload).length > 0) {
     window.fbq?.('track', eventName, payload, { eventID: eventId });
     return eventId;
   }
 
-  window.fbq?.('track', eventName, {}, { eventID: eventId });
+  window.fbq?.('track', eventName);
   return eventId;
 };
 
