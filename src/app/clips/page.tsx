@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from 'react';
 import CTAButton from '@/components/vsl/CTAButton';
 import PaymentFormDrawer from '@/components/clips/PaymentFormDrawer';
 import PaymentForm from '@/components/clips/PaymentForm';
-import { initiateCheckout, viewContent } from '@/lib/fpixel-clips';
 import {
   ClipsHero,
   ClipsVideo,
@@ -27,13 +26,19 @@ export default function ClipsPage() {
 
   useEffect(() => {
     if (hasTrackedViewContent.current) return;
-    viewContent();
+    (async () => {
+      const ReactPixel = (await import('react-facebook-pixel')).default;
+      ReactPixel.track('ViewContent', { value: 40, currency: 'USD' });
+    })();
     hasTrackedViewContent.current = true;
   }, []);
 
   useEffect(() => {
     if (!previousFormOpen.current && formOpen) {
-      initiateCheckout();
+      (async () => {
+        const ReactPixel = (await import('react-facebook-pixel')).default;
+        ReactPixel.track('InitiateCheckout', { value: 40, currency: 'USD' });
+      })();
     }
     previousFormOpen.current = formOpen;
   }, [formOpen]);

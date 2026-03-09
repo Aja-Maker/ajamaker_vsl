@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Poppins } from 'next/font/google'
-import Script from "next/script";
 import "../globals.css";
 import { Toaster } from "@/components/ui/sonner";
-import TrackClipsPixelPageView from "@/components/clips/TrackClipsPixelPageView";
+import ClientMetaPixelLuxury from "@/components/clips/ClientMetaPixelLuxury";
 
 const poppins = Poppins({
   weight: ['400', '500', '600', '700'],
@@ -25,45 +24,43 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const pixelId = (process.env.FACEBOOK_PIXEL_ID_LUXURY || '').replace(/\D/g, '');
-
   return (
     <html lang="es">
       <head>
         <link rel="icon" href="/icons/clips.svg" />
         {/* ONVO 3DS SDK */}
         <script src="https://js.onvopay.com/v1/"></script>
-        {pixelId && (
-          <Script
-            id="fb-pixel-clips-config"
-            strategy="beforeInteractive"
-            dangerouslySetInnerHTML={{
-              __html: `window.__META_PIXEL_ID_CLIPS = "${pixelId}";`,
-            }}
-          />
-        )}
-        {pixelId && (
-          <Script
-            id="fb-pixel-clips"
-            src="/scripts/pixel-clips.js"
-            strategy="beforeInteractive"
-          />
-        )}
+        {/* Meta Pixel Code */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              !function(f,b,e,v,n,t,s)
+              {if(f.fbq)return;n=f.fbq=function(){n.callMethod?                         
+              n.callMethod.apply(n,arguments):n.queue.push   
+              (arguments)}; if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!
+              0;n.version='2.0';n.queue=[];t=b.createElement(e);
+              t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];
+              s.parentNode.insertBefore(t,s)}(window, document,
+              'script',
+              'https://connect.facebook.net/en_US/fbevents.js');
+              fbq('init', ${process.env.FACEBOOK_PIXEL_ID_LUXURY!});
+              fbq('track', 'PageView');
+            `,
+          }}
+        />
+        <noscript>
+          <img
+            height="1"
+            width="1"
+            style={{ display: "none" }}
+            src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID&ev=
+            PageView&noscript=1"/>
+        </noscript>
+        {/* End Meta Pixel Code */}
       </head>
       <body className={`${poppins.variable} font-sans antialiased`}>
-        <TrackClipsPixelPageView />
+        <ClientMetaPixelLuxury/>
         {children}
-        {pixelId && (
-          <noscript>
-            <img
-              height="1"
-              width="1"
-              style={{ display: "none" }}
-              src={`https://www.facebook.com/tr?id=${pixelId}&ev=PageView&noscript=1`}
-              alt=""
-            />
-          </noscript>
-        )}
         <Toaster position="bottom-center" richColors/>
       </body>
     </html>
