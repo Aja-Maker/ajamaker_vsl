@@ -11,7 +11,7 @@ const sectionBase = 'rounded-3xl border border-[#1F2937] bg-[#0B0E16] text-white
 export function ClipsHero({ onCtaClick }: SectionProps) {
   return (
     <section className={`${sectionBase} text-center space-y-4`}>
-      <p className="text-xs uppercase tracking-[0.4em] text-[#FACC15]">Sólo por diciembre</p>
+      <p className="text-xs uppercase tracking-[0.4em] text-[#FACC15]">Sólo por marzo</p>
       <h1 className="text-3xl font-semibold leading-tight">Paquete de más de 100,000 reels virales de estilo de vida de lujo</h1>
       <p className="text-base text-white/80">Descarga instantánea · 75% off</p>
       {/* <CTAButton onClick={onCtaClick} variant="gradient" /> */}
