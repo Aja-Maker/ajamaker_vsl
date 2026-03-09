@@ -174,9 +174,7 @@ export default function PaymentForm({ onSuccess }: { onSuccess?: (intentId: stri
     toast.dismiss();
     try {
       const { expMonth, expYear } = parseExpDate(values.expDate);
-      addPaymentInfo({
-        userData: { email: values.email, phone: values.phone },
-      });
+      addPaymentInfo();
 
       const clientRes = await createOnvoClient({
         name: values.name,
@@ -229,9 +227,7 @@ export default function PaymentForm({ onSuccess }: { onSuccess?: (intentId: stri
       }
 
       if (status === 'succeeded') {
-        purchase({
-          userData: { email: values.email, phone: values.phone },
-        });
+        purchase();
         toast.success('Pago realizado con éxito. Enviando correo electrónico... No cierres la ventana.');
         form.reset(defaultValues);
         onSuccess?.(intentRes.data.id);

@@ -1,12 +1,6 @@
-type UserDataParams = {
-  email?: string;
-  phone?: string;
-};
-
 type BaseEventParams = {
   value?: number;
   currency?: string;
-  userData?: UserDataParams;
 };
 
 type CheckoutParams = BaseEventParams & {
@@ -19,6 +13,7 @@ declare global {
     _fbq?: (...args: unknown[]) => void;
     __META_PIXEL_READY?: boolean;
     __META_PIXEL_ID?: string;
+    __META_PIXEL_ID_CLIPS?: string;
   }
 }
 
@@ -26,7 +21,8 @@ const CURRENCY = 'USD';
 const DEFAULT_VALUE = 40;
 const CONTENT_ID = 'luxury-reels-pack';
 const CONTENT_TYPE = 'product';
-let lastAdvancedMatchingSignature: string | null = null;
+let hasWarnedNoFbq = false;
+let hasWarnedBeforeInit = false;
 
 const getDefaultContents = (value: number) => [
   {
@@ -36,9 +32,28 @@ const getDefaultContents = (value: number) => [
   },
 ];
 
-const canTrack = () =>
+const isDev = () =>
   typeof window !== 'undefined' &&
-  typeof window.fbq === 'function';
+  (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+
+const canTrack = () => {
+  if (typeof window === 'undefined') return false;
+
+  if (typeof window.fbq !== 'function') {
+    if (isDev() && !hasWarnedNoFbq) {
+      console.warn('[clips pixel] fbq is not available. Event skipped.');
+      hasWarnedNoFbq = true;
+    }
+    return false;
+  }
+
+  if (!window.__META_PIXEL_READY && isDev() && !hasWarnedBeforeInit) {
+    console.warn('[clips pixel] Tracking called before pixel init finished.');
+    hasWarnedBeforeInit = true;
+  }
+
+  return true;
+};
 
 const generateEventId = () => {
   if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
@@ -47,46 +62,12 @@ const generateEventId = () => {
   return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 };
 
-const normalizeEmail = (email?: string) => {
-  const normalized = email?.trim().toLowerCase();
-  return normalized || undefined;
-};
-
-const normalizePhone = (phone?: string) => {
-  const normalized = phone?.replace(/\D/g, '');
-  return normalized || undefined;
-};
-
-const updateAdvancedMatching = (userData?: UserDataParams) => {
-  if (!canTrack()) return;
-
-  const email = normalizeEmail(userData?.email);
-  const phone = normalizePhone(userData?.phone);
-  if (!email && !phone) return;
-
-  const payload: Record<string, string> = {};
-  if (email) payload.em = email;
-  if (phone) payload.ph = phone;
-
-  const signature = JSON.stringify(payload);
-  if (signature === lastAdvancedMatchingSignature) return;
-
-  try {
-    window.fbq?.('set', 'userData', payload);
-    lastAdvancedMatchingSignature = signature;
-  } catch {
-    // Best effort only
-  }
-};
-
 const track = (
   eventName: 'PageView' | 'ViewContent' | 'InitiateCheckout' | 'AddPaymentInfo' | 'Purchase',
-  payload?: Record<string, unknown>,
-  userData?: UserDataParams
+  payload?: Record<string, unknown>
 ) => {
   if (!canTrack()) return;
 
-  updateAdvancedMatching(userData);
   const eventId = generateEventId();
 
   if (payload && Object.keys(payload).length > 0) {
@@ -103,7 +84,6 @@ export const pageview = () => track('PageView');
 export const viewContent = ({
   value = DEFAULT_VALUE,
   currency = CURRENCY,
-  userData,
 }: BaseEventParams = {}) =>
   track(
     'ViewContent',
@@ -113,15 +93,13 @@ export const viewContent = ({
       contents: getDefaultContents(value),
       currency,
       value,
-    },
-    userData
+    }
   );
 
 export const initiateCheckout = ({
   value = DEFAULT_VALUE,
   currency = CURRENCY,
   numItems = 1,
-  userData,
 }: CheckoutParams = {}) =>
   track(
     'InitiateCheckout',
@@ -132,15 +110,13 @@ export const initiateCheckout = ({
       currency,
       num_items: numItems,
       value,
-    },
-    userData
+    }
   );
 
 export const addPaymentInfo = ({
   value = DEFAULT_VALUE,
   currency = CURRENCY,
   numItems = 1,
-  userData,
 }: CheckoutParams = {}) =>
   track(
     'AddPaymentInfo',
@@ -151,15 +127,13 @@ export const addPaymentInfo = ({
       currency,
       num_items: numItems,
       value,
-    },
-    userData
+    }
   );
 
 export const purchase = ({
   value = DEFAULT_VALUE,
   currency = CURRENCY,
   numItems = 1,
-  userData,
 }: CheckoutParams = {}) =>
   track(
     'Purchase',
@@ -170,6 +144,5 @@ export const purchase = ({
       currency,
       num_items: numItems,
       value,
-    },
-    userData
+    }
   );

@@ -35,10 +35,18 @@ export default function RootLayout({
         <script src="https://js.onvopay.com/v1/"></script>
         {pixelId && (
           <Script
+            id="fb-pixel-clips-config"
+            strategy="beforeInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `window.__META_PIXEL_ID_CLIPS = "${pixelId}";`,
+            }}
+          />
+        )}
+        {pixelId && (
+          <Script
             id="fb-pixel-clips"
             src="/scripts/pixel-clips.js"
             strategy="beforeInteractive"
-            data-pixel-id={pixelId}
           />
         )}
       </head>
