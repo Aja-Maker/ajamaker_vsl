@@ -58,8 +58,16 @@ const normalizePhone = (phone?: string) => {
   return normalized || undefined;
 };
 
+const getPixelId = () => {
+  if (typeof window === 'undefined') return undefined;
+  const pixelId = (window.__META_PIXEL_ID || '').replace(/\D/g, '');
+  return pixelId || undefined;
+};
+
 const updateAdvancedMatching = (userData?: UserDataParams) => {
   if (!canTrack()) return;
+  const pixelId = getPixelId();
+  if (!pixelId) return;
 
   const email = normalizeEmail(userData?.email);
   const phone = normalizePhone(userData?.phone);
@@ -73,7 +81,7 @@ const updateAdvancedMatching = (userData?: UserDataParams) => {
   if (signature === lastAdvancedMatchingSignature) return;
 
   try {
-    window.fbq?.('set', 'userData', payload);
+    window.fbq?.('set', 'userData', payload, pixelId);
     lastAdvancedMatchingSignature = signature;
   } catch {
     // Best effort only
@@ -174,4 +182,3 @@ export const purchase = ({
     },
     userData
   );
-
