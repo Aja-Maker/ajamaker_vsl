@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import CTAButton from '@/components/vsl/CTAButton';
 import PaymentFormDrawer from '@/components/clips/PaymentFormDrawer';
 import PaymentForm from '@/components/clips/PaymentForm';
+import { initiateCheckout, viewContent } from '@/lib/fpixel-clips';
 import {
   ClipsHero,
   ClipsVideo,
@@ -18,8 +19,24 @@ import {
 
 export default function ClipsPage() {
   const [formOpen, setFormOpen] = useState(false);
+  const hasTrackedViewContent = useRef(false);
+  const previousFormOpen = useRef(false);
+
   const openForm = () => setFormOpen(true);
   const closeForm = () => setFormOpen(false);
+
+  useEffect(() => {
+    if (hasTrackedViewContent.current) return;
+    viewContent();
+    hasTrackedViewContent.current = true;
+  }, []);
+
+  useEffect(() => {
+    if (!previousFormOpen.current && formOpen) {
+      initiateCheckout();
+    }
+    previousFormOpen.current = formOpen;
+  }, [formOpen]);
 
   return (
     <main className="min-h-screen bg-[#02040A] text-white pb-32">

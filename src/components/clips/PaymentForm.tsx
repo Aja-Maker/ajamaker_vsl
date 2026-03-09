@@ -23,6 +23,7 @@ import {
   getPaymentIntent,
   sendNotificationEmail,
 } from '@/app/clips/actions';
+import { addPaymentInfo, purchase } from '@/lib/fpixel-clips';
 
 const paymentSchema = z.object({
   name: z.string().min(2, 'Nombre requerido').trim(),
@@ -173,6 +174,9 @@ export default function PaymentForm({ onSuccess }: { onSuccess?: (intentId: stri
     toast.dismiss();
     try {
       const { expMonth, expYear } = parseExpDate(values.expDate);
+      addPaymentInfo({
+        userData: { email: values.email, phone: values.phone },
+      });
 
       const clientRes = await createOnvoClient({
         name: values.name,
@@ -225,10 +229,8 @@ export default function PaymentForm({ onSuccess }: { onSuccess?: (intentId: stri
       }
 
       if (status === 'succeeded') {
-        const ReactPixel = (await import("react-facebook-pixel")).default;
-        ReactPixel.track("Purchase", {
-          value: 40,
-          currency:'USD'
+        purchase({
+          userData: { email: values.email, phone: values.phone },
         });
         toast.success('Pago realizado con éxito. Enviando correo electrónico... No cierres la ventana.');
         form.reset(defaultValues);
