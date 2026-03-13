@@ -15,7 +15,7 @@ interface WrapperProps {
   children: ReactNode;
 }
 
-const DATE = 'Jueves 12 de marzo'
+const DATE = 'Viernes 13 de marzo'
 const TIME = '5:30pm hora de Costa Rica, 6:30pm hora de Colombia'
 
 function SectionWrapper({ tone = 'light', children }: WrapperProps) {
