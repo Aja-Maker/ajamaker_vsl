@@ -11,8 +11,8 @@ const instrumentSans = Instrument_Sans({
 })
 
 export const metadata: Metadata = {
-  title: "AJAMAKER",
-  description: "Vive, crece y transforma tu vida.",
+  title: "Seminario Vitalidad — 100% Gratis | Aformativo University",
+  description: "Descubre el conocimiento que puede cambiar por completo la manera en que entiendes tu salud, tu energía y tu vida.",
 };
 
 export default function RootLayout({
