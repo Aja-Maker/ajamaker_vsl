@@ -1,4 +1,11 @@
 import CTAButton from "@/components/CTAButton";
+import Image from "next/image";
+import {
+  SEMINAR_DATE,
+  SEMINAR_DATETIME,
+  VIMEO_INTRO_VIDEO_ID,
+  VIMEO_WELCOME_VIDEO_ID,
+} from "@/lib/seminar-config";
 
 // ── Reusable leaf components ─────────────────────────────────────────────────
 
@@ -65,6 +72,33 @@ export default function Home() {
         <p className="text-[#1B5E20] text-[15px] leading-relaxed max-w-sm font-light">
           Descubre el conocimiento que puede cambiar por completo la manera en que entiendes tu salud, tu energía y tu vida.
         </p>
+
+        {/* Intro video */}
+        {VIMEO_INTRO_VIDEO_ID !== "PLACEHOLDER" ? (
+          <div className="w-full max-w-sm rounded-2xl overflow-hidden border border-[#5BC8F5]/40 shadow-md">
+            <iframe
+              src={`https://player.vimeo.com/video/${VIMEO_INTRO_VIDEO_ID}?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479`}
+              className="w-full aspect-video"
+              allow="autoplay; fullscreen"
+              allowFullScreen
+              loading="lazy"
+            />
+          </div>
+        ) : (
+          <div className="w-full max-w-sm rounded-2xl border-2 border-dashed border-[#5BC8F5]/60 bg-[#EBF5FB] aspect-video flex flex-col items-center justify-center gap-2 text-[#5BC8F5]">
+            <svg className="w-10 h-10 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9A2.25 2.25 0 0013.5 5.25h-9A2.25 2.25 0 002.25 7.5v9A2.25 2.25 0 004.5 18.75z" />
+            </svg>
+            <p className="text-[12px] font-semibold opacity-70">Video de introducción</p>
+            <p className="text-[11px] opacity-50">Próximamente</p>
+          </div>
+        )}
+
+        <div className="bg-white/70 rounded-2xl border border-[#F5A623]/30 px-5 py-3 text-center shadow-sm">
+          <p className="text-[#0D47A1] font-bold text-[13px]">📅 Aparta esta fecha:</p>
+          <p className="text-[#1B5E20] font-semibold text-[14px] mt-0.5">{SEMINAR_DATETIME}</p>
+        </div>
+
         <CTAButton label="QUIERO VER EL SEMINARIO GRATIS" size="large" />
         <p className="text-[#7CB342] text-[12px] font-light tracking-wide">
           Acceso gratuito &nbsp;·&nbsp; Online &nbsp;·&nbsp; Cupos limitados
@@ -116,6 +150,10 @@ export default function Home() {
             </p>
           </div>
 
+          <div className="bg-white/70 rounded-2xl border border-[#F5A623]/30 px-5 py-3 text-center shadow-sm w-full">
+            <p className="text-[#0D47A1] font-bold text-[13px]">📅 Fecha del seminario:</p>
+            <p className="text-[#1B5E20] font-semibold text-[14px] mt-0.5">{SEMINAR_DATETIME}</p>
+          </div>
           <CTAButton label="RESERVAR MI LUGAR GRATIS" />
         </div>
       </section>
@@ -293,9 +331,14 @@ export default function Home() {
           </p>
           <h2 className="text-white text-2xl font-extrabold">Soy Marvin Solís</h2>
 
-          {/* Avatar placeholder */}
-          <div className="mx-auto w-24 h-24 rounded-full bg-[#5BC8F5]/20 border-4 border-[#F5A623] flex items-center justify-center">
-            <span className="text-white font-bold text-3xl">M</span>
+          <div className="mx-auto w-28 h-28 rounded-full border-4 border-[#F5A623] overflow-hidden shadow-lg">
+            <Image
+              src="/foto-marvin.png"
+              alt="Marvin Solís"
+              width={112}
+              height={112}
+              className="w-full h-full object-cover"
+            />
           </div>
 
           <div className="text-left space-y-4">
@@ -396,6 +439,10 @@ export default function Home() {
             ))}
           </div>
 
+          <div className="bg-white/70 rounded-2xl border border-[#F5A623]/30 px-5 py-3 text-center shadow-sm w-full">
+            <p className="text-[#0D47A1] font-bold text-[13px]">📅 El seminario es el {SEMINAR_DATE}</p>
+            <p className="text-[#1B5E20] text-[13px] font-light mt-0.5">No te lo pierdas — reserva tu lugar ahora.</p>
+          </div>
           <CTAButton label="SÍ, QUIERO ENTRAR GRATIS AL SEMINARIO" size="large" />
           <p className="text-[#7CB342] text-[12px] font-light">
             Accede ahora y empieza este recorrido con nosotros.
@@ -414,7 +461,7 @@ export default function Home() {
           </p>
           <div className="w-full rounded-2xl overflow-hidden border border-[#5BC8F5]/40 shadow-md">
             <iframe
-              src="https://player.vimeo.com/video/1086211660?h=ffea09936a&title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479"
+              src={`https://player.vimeo.com/video/${VIMEO_WELCOME_VIDEO_ID}?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479`}
               className="w-full aspect-video"
               allow="autoplay; fullscreen"
               allowFullScreen
