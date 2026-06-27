@@ -3,8 +3,8 @@
 // Cambia estos valores cada vez que el seminario tenga una nueva fecha.
 // ─────────────────────────────────────────────────────────────────────────────
 
-export const SEMINAR_DATE = "27 de junio de 2026";
-export const SEMINAR_TIME = "10am";
+export const SEMINAR_DATE = "30 de junio de 2026";
+export const SEMINAR_TIME = "6pm";
 export const SEMINAR_TIMEZONE = "hora de Costa Rica";
 
 // Full formatted string used throughout the page
