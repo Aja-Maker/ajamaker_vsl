@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-const WA_LINK = "https://chat.whatsapp.com/Bo1egfwyeCxBQ6YW8rRJfj";
+const SEMINAR_LINK = "/vitalidad";
 
 interface CTAButtonProps {
   label: string;
@@ -21,7 +21,7 @@ export default function CTAButton({ label, size = "normal" }: CTAButtonProps) {
 
   return (
     <Link
-      href={WA_LINK}
+      href={SEMINAR_LINK}
       onClick={handleClick}
       className={`inline-block bg-gradient-to-r from-[#F5A623] to-[#E8940A] text-white font-bold ${padding} rounded-full shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-200 tracking-wide text-center`}
     >

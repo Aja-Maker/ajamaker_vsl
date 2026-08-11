@@ -1,8 +1,6 @@
 import CTAButton from "@/components/CTAButton";
 import Image from "next/image";
 import {
-  SEMINAR_DATE,
-  SEMINAR_DATETIME,
   VIMEO_INTRO_VIDEO_ID,
   VIMEO_WELCOME_VIDEO_ID,
 } from "@/lib/seminar-config";
@@ -95,11 +93,11 @@ export default function Home() {
         )}
 
         <div className="bg-white/70 rounded-2xl border border-[#F5A623]/30 px-5 py-3 text-center shadow-sm">
-          <p className="text-[#0D47A1] font-bold text-[13px]">📅 Aparta esta fecha:</p>
-          <p className="text-[#1B5E20] font-semibold text-[14px] mt-0.5">{SEMINAR_DATETIME}</p>
+          <p className="text-[#0D47A1] font-bold text-[13px]">El seminario dura aproximadamente una hora.</p>
+          <p className="text-[#1B5E20] font-semibold text-[14px] mt-0.5">Si estás listo para verlo ahora, presiona el botón de abajo.</p>
         </div>
 
-        <CTAButton label="QUIERO VER EL SEMINARIO GRATIS" size="large" />
+        <CTAButton label="QUIERO VER EL SEMINARIO AHORA" size="large" />
         <p className="text-[#7CB342] text-[12px] font-light tracking-wide">
           Acceso gratuito &nbsp;·&nbsp; Online &nbsp;·&nbsp; Cupos limitados
         </p>
@@ -151,10 +149,10 @@ export default function Home() {
           </div>
 
           <div className="bg-white/70 rounded-2xl border border-[#F5A623]/30 px-5 py-3 text-center shadow-sm w-full">
-            <p className="text-[#0D47A1] font-bold text-[13px]">📅 Fecha del seminario:</p>
-            <p className="text-[#1B5E20] font-semibold text-[14px] mt-0.5">{SEMINAR_DATETIME}</p>
+            <p className="text-[#0D47A1] font-bold text-[13px]">El seminario dura aproximadamente una hora.</p>
+            <p className="text-[#1B5E20] font-semibold text-[14px] mt-0.5">Cuando estés listo, puedes verlo de inmediato.</p>
           </div>
-          <CTAButton label="RESERVAR MI LUGAR GRATIS" />
+          <CTAButton label="QUIERO VER EL SEMINARIO AHORA" />
         </div>
       </section>
 
@@ -230,7 +228,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── SECTION 5: CÓDIGO VITALISTA ────────────────────────────────── */}
+      {/* ── SECTION 5: VITALIDAD ── */}
       <section className="bg-[#F0FAF5] w-full py-16 px-6 flex flex-col items-center space-y-6">
         <div className="max-w-md w-full space-y-6 text-center">
           <h2 className="text-[#0D47A1] text-xl font-bold leading-snug">
@@ -248,7 +246,7 @@ export default function Home() {
           </p>
 
           <div className="bg-gradient-to-br from-[#F5A623] to-[#E8940A] rounded-2xl p-6 shadow-lg space-y-2">
-            <p className="text-white font-extrabold text-2xl tracking-wide">CÓDIGO VITALISTA</p>
+            <p className="text-white font-extrabold text-2xl tracking-wide">VITALIDAD</p>
             <p className="text-white/90 text-[13px] font-light leading-snug">
               El conocimiento clave para comprender tu inteligencia, tu bienestar y tu vida.
             </p>
@@ -258,7 +256,7 @@ export default function Home() {
             Este aprendizaje puede abrirte los ojos a una manera totalmente distinta de vivir.
           </p>
 
-          <CTAButton label="QUIERO CONOCER EL CÓDIGO VITALISTA" />
+          <CTAButton label="QUIERO VER EL SEMINARIO AHORA" />
         </div>
       </section>
 
@@ -440,10 +438,10 @@ export default function Home() {
           </div>
 
           <div className="bg-white/70 rounded-2xl border border-[#F5A623]/30 px-5 py-3 text-center shadow-sm w-full">
-            <p className="text-[#0D47A1] font-bold text-[13px]">📅 El seminario es el {SEMINAR_DATE}</p>
-            <p className="text-[#1B5E20] text-[13px] font-light mt-0.5">No te lo pierdas — reserva tu lugar ahora.</p>
+            <p className="text-[#0D47A1] font-bold text-[13px]">El seminario dura aproximadamente una hora.</p>
+            <p className="text-[#1B5E20] text-[13px] font-light mt-0.5">Presiona el botón y empieza a verlo ahora mismo.</p>
           </div>
-          <CTAButton label="SÍ, QUIERO ENTRAR GRATIS AL SEMINARIO" size="large" />
+          <CTAButton label="SÍ, QUIERO VER EL SEMINARIO AHORA" size="large" />
           <p className="text-[#7CB342] text-[12px] font-light">
             Accede ahora y empieza este recorrido con nosotros.
           </p>
@@ -495,7 +493,7 @@ export default function Home() {
           <p className="text-[#0D47A1] font-semibold text-[14px]">
             Este seminario puede abrirte una puerta que no sabías que existía.
           </p>
-          <CTAButton label="QUIERO ACCEDER AHORA" />
+          <CTAButton label="QUIERO VER EL SEMINARIO AHORA" />
         </div>
       </section>
 
@@ -520,7 +518,7 @@ export default function Home() {
             />
             <FAQItem
               q="¿Necesito hacer algo especial para entrar?"
-              a="No. Solo da clic en el botón, regístrate y sigue las instrucciones para acceder."
+              a="No. Solo da clic en el botón para acceder y empezar a verlo de inmediato."
             />
             <FAQItem
               q="¿Qué hace diferente este seminario?"
@@ -557,7 +555,7 @@ export default function Home() {
             <p className="text-[#5BC8F5] text-[12px] font-light">Aformativo University</p>
           </div>
 
-          <CTAButton label="ENTRAR GRATIS AL SEMINARIO VITALIDAD" size="large" />
+          <CTAButton label="QUIERO VER EL SEMINARIO AHORA" size="large" />
         </div>
       </section>
 
