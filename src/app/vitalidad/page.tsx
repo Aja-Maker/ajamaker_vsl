@@ -1,5 +1,5 @@
 const SEMINAR_VIDEO_URL =
-  "https://drive.google.com/file/d/1v3CtXQREFJODtZRhZjW1aYt6zJQQCxBK/preview";
+  "https://drive.google.com/file/d/1ZpLNPd4CTtJnlprXKro3LYV-fnl4O2ZW/preview";
 const CHECKOUT_URL = process.env.NEXT_PUBLIC_ONVO_CHECKOUT_URL;
 
 export default function VitalidadPage() {
